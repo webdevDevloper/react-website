@@ -8,25 +8,47 @@ import LoginForm from "./pages/Login/LoginForm";
 import Resgister from "./pages/Resgister/Resgister";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SinglePost from "./components/SinglePost/SinglePost";
+import { routes } from "./routes/routes";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
-  const user = false;
-  return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/resgister" element={user ? <Home /> : <Resgister />} />
-        <Route path="/login" element={user ? <Home /> : <LoginForm />} />
-        <Route path="/write" element={user ? <Write /> : <Resgister />} />
-        <Route path="/setting" element={user ? <Setting /> : <Resgister />} />
-        <Route
-          path="/post/:postId"
-          element={user ? <SinglePost /> : <LoginForm />}
-        />
-      </Routes>
-    </BrowserRouter>
-  );
+	const user = false;
+	return (
+		<BrowserRouter>
+			<Navbar />
+			<Routes>
+				<Route path="/home" element={<Home />} />
+				<Route
+					path="/resgister"
+					element={user ? <Home /> : <Resgister />}
+				/>
+				<Route
+					path="/login"
+					element={user ? <Home /> : <LoginForm />}
+				/>
+				<Route
+					path="/write"
+					element={user ? <Write /> : <Resgister />}
+				/>
+				<Route
+					path="/setting"
+					element={user ? <Setting /> : <Resgister />}
+				/>
+				<Route
+					path="/post/:postId"
+					element={user ? <SinglePost /> : <LoginForm />}
+				/>
+				<Route
+					path="/private"
+					element={
+						<PrivateRoute route={routes[0]}>
+							<div>This is private route</div>
+						</PrivateRoute>
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
