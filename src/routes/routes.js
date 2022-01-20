@@ -1,5 +1,6 @@
 import Home from "../pages/Home/Home";
 import LoginForm from "../pages/Login/LoginForm";
+import ProductDetail from "../pages/ProductDetail/ProductDetail";
 
 export const routes = [
 	{
@@ -19,7 +20,7 @@ export const routes = [
 	{
 		id: 2,
 		path: "/product/:id",
-		element: <Home />,
+		element: <ProductDetail />,
 		isPrivate: false,
 		isAdmin: false,
 	},

@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SinglePost from "./components/SinglePost/SinglePost";
 import { routes } from "./routes/routes";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
 
 function App() {
 	const user = false;
@@ -46,6 +47,7 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
+				<Route path="/product/:id" element={<ProductDetail />} />
 			</Routes>
 		</BrowserRouter>
 	);
