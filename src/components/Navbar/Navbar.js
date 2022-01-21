@@ -10,9 +10,10 @@ function Navbar() {
   //   avatar:
   //     "https://gudlogo.com/wp-content/uploads/2019/05/logo-con-cho-soi-14.png",
   //   name: "loc pham",
+  //   role: "admin",
   // };
-
   const [click, setClick] = useState(false);
+
   const handleClick = () => {
     setClick(!click);
   };
@@ -60,11 +61,18 @@ function Navbar() {
               <span>{user.name}</span>
               <i className="fas fa-caret-down"></i>
               <ul className={styles.nav__container__user__option}>
-                <li>
+                <li onClick={closeMobile}>
                   <Link to="/history">My Order</Link>
                 </li>
-                <li>My Acount</li>
-                <li>Log Out</li>
+
+                {user.role === "admin" ? (
+                  <li>
+                    <Link to="/addproducts">Add Products</Link>
+                  </li>
+                ) : (
+                  ""
+                )}
+                <li onClick={closeMobile}>Log Out</li>
               </ul>
             </>
           ) : (

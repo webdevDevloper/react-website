@@ -27,22 +27,10 @@ function App() {
 			<Navbar />
 			<Routes>
 				<Route path="/home" element={<Home />} />
-				<Route
-					path="/resgister"
-					element={user ? <Home /> : <Resgister />}
-				/>
-				<Route
-					path="/login"
-					element={user ? <Home /> : <LoginForm />}
-				/>
-				<Route
-					path="/write"
-					element={user ? <Write /> : <Resgister />}
-				/>
-				<Route
-					path="/setting"
-					element={user ? <Setting /> : <Resgister />}
-				/>
+				<Route path="/resgister" element={user ? <Home /> : <Resgister />} />
+				<Route path="/login" element={user ? <Home /> : <LoginForm />} />
+				<Route path="/write" element={user ? <Write /> : <Resgister />} />
+				<Route path="/setting" element={user ? <Setting /> : <Resgister />} />
 				<Route
 					path="/post/:postId"
 					element={user ? <SinglePost /> : <LoginForm />}
