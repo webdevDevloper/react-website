@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import "./LoginForm.css";
+import styles from "./LoginForm.module.scss";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -33,13 +33,17 @@ function LoginForm(props) {
 	}
 
 	return (
-		<div className="login">
-			<div className="overlay"></div>
-			<form className="form">
-				<div className="form-container">
-					<h2 className="form-heading">Login</h2>
-					<h3 className="form-title">Well Come Back</h3>
-					<div className="form-gorup">
+		<div className={styles.login}>
+			<div className={styles.login__overlay}></div>
+			<form className={styles.login__form}>
+				<div className={styles.login__form__container}>
+					<h2 className={styles.login__form__container__heading}>
+						Login
+					</h2>
+					<h3 className={styles.login__form__container__title}>
+						Well Come Back
+					</h3>
+					<div className={styles.login__form__container__gorup}>
 						<input
 							type="text"
 							placeholder="Email"
@@ -50,7 +54,7 @@ function LoginForm(props) {
 							autoFocus={true}
 						/>
 					</div>
-					<div className="form-gorup">
+					<div className={styles.login__form__container__gorup}>
 						<input
 							name="password"
 							type="password"
@@ -64,11 +68,15 @@ function LoginForm(props) {
 							value={password.password}
 						/>
 					</div>
-					<button className="button-form" onClick={login}>
+					<button className={styles.login__form__btn} onClick={login}>
 						Sign In
 					</button>
-					<div className="form-gorup">
-						<div className="checkbox-wrap">
+					<div className={styles.login__form__container__gorup}>
+						<div
+							className={
+								styles.login__form__container__gorup__checkbox
+							}
+						>
 							<input type="checkbox" />
 							<span>Remember Me</span>
 						</div>
@@ -76,14 +84,20 @@ function LoginForm(props) {
 					</div>
 				</div>
 				<p>— Or Sign In With —</p>
-				<div className="social">
+				<div className={styles.login__form__socials}>
 					<button>Facebook</button>
 					<button>Tiwiter</button>
 				</div>
+				<Link className="link" to="/resgister">
+					<button
+						className={
+							styles.login__form__container__resgister__btn
+						}
+					>
+						Resgister
+					</button>
+				</Link>
 			</form>
-			<Link className="link" to="/resgister">
-				<button className="login-resgister-btn">Resgister</button>
-			</Link>
 		</div>
 	);
 }
