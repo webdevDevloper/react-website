@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import testImage from "assets/22.jpg";
 import PrimaryButton from "components/StyledButton/Button";
 import { SecondButton } from "components/StyledButton/Button";
 import ProductSmallCard from "./ProductSmallCard";
 import Rating from "components/Rating/Rating";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addItem } from "redux/reducer/cartSlice";
+import { useParams } from "react-router-dom";
+
+const testData = {
+	id: 0,
+	name: "Sapiens",
+	price: 10,
+	description: "Hello ae",
+};
 
 function ProductDetail(props) {
+	const { id } = useParams();
+
+	const [quantity, setQuantity] = useState(1);
+	const shoppingCart = useSelector((state) => state.shoppingCart);
+	const dispatch = useDispatch();
+
+	const [productDetail, setProductDetail] = useState(testData);
+	console.log(shoppingCart);
+
+	useEffect(() => {
+		console.log(id);
+	}, [id]);
+
+	const handleAddItemToCart = () => {
+		const product = {
+			...productDetail,
+			quantity: quantity,
+		};
+		dispatch(addItem(product));
+	};
+
 	return (
 		<div className="w-4/5 lg:w-11/12 max-w-md mx-auto md:max-w-none md:mt-10 md:flex">
 			<div className="md:mr-10 md:w-1/2 lg:flex lg:w-3/4">
@@ -28,18 +60,22 @@ function ProductDetail(props) {
 						<span className="text-xl font-semibold mr-2">$10</span>
 						<del className="text-gray-500">$11</del>
 					</div>
-					<div className="text-sm text-gray-800">
+					<div className="text-sm text-gray-800 mb-4">
 						Lorem ipsum dolor sit amet, consectetur adipisicing
 						elit. Explicabo, adipisci. Lorem ipsum dolor sit amet,
 						consectetur adipisicing elit. Cumque, perspiciatis!
 					</div>
-					<div className="lg:flex">
+					<div className="lg:flex lg:justify-center lg:items-stretch">
 						<input
 							type="number"
-							value=""
-							className="border lg:w-16"
+							value={quantity}
+							onChange={(e) => setQuantity(e.target.value)}
+							className="mb-4 border-2 w-14 h-10 lg:w-16 lg:mr-2 lg:h-12 lg:mb-0 p-2 "
 						/>
-						<PrimaryButton className="mb-2 lg:max-w-md">
+						<PrimaryButton
+							onClick={handleAddItemToCart}
+							className="mb-2 lg:max-w-md"
+						>
 							Add to cart
 						</PrimaryButton>
 					</div>
@@ -55,6 +91,11 @@ function ProductDetail(props) {
 				<ProductSmallCard />
 				<ProductSmallCard />
 				<ProductSmallCard />
+			</div>
+
+			<div>Test cart here</div>
+			<div>
+				{shoppingCart && <div>{shoppingCart.cartItemsQuantity}</div>}
 			</div>
 		</div>
 	);

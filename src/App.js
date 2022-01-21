@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Single from "./pages/Single/Single";
@@ -11,9 +11,17 @@ import SinglePost from "./components/SinglePost/SinglePost";
 import { routes } from "./routes/routes";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import { useDispatch } from "react-redux";
+import { initCart } from "redux/reducer/cartSlice";
 
 function App() {
 	const user = false;
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(initCart());
+	}, []);
+
 	return (
 		<BrowserRouter>
 			<Navbar />
