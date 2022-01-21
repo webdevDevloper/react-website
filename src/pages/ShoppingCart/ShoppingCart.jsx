@@ -1,13 +1,33 @@
 import PrimaryButton, { SecondButton } from "components/StyledButton/Button";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "./ItemsCard";
 
+const testData = {
+	id: 0,
+	name: "Sapiens",
+	price: 10,
+	quantity: 1,
+	description: "Hello ae",
+};
+
 const ShoppingCart = () => {
 	let navigate = useNavigate();
+
+	const [listItems, setListItems] = useState([]);
+
+	const shoppingCart = useSelector((state) => state.shoppingCart);
+
 	const handleKeepShopping = () => {
 		navigate("/");
 	};
+	useEffect(() => {
+		if (shoppingCart) {
+			console.log(shoppingCart);
+			setListItems(shoppingCart?.cartItems);
+		}
+	}, [shoppingCart]);
 
 	return (
 		<div className="flex flex-col mx-auto items-center w-10/12 md:w-11/12 text-gray-800 md:flex-row">
@@ -16,8 +36,8 @@ const ShoppingCart = () => {
 					Your cart
 				</div>
 				<div className="w-full">
-					<ItemCard />
-					<ItemCard />
+					<ItemCard item={listItems[0]} />
+					<ItemCard item={testData} />
 				</div>
 			</div>
 

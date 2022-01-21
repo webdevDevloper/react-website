@@ -4,19 +4,22 @@ const InputNumber = ({ number, setNumber, className, height }) => {
 	const handleNumberChange = (target) => {
 		if (setNumber) {
 			setNumber(target.value);
+			console.log("changed");
 		}
 	};
 
 	const increase = () => {
 		if (setNumber) {
-			setNumber(number + 1);
+			let newNumber = Number.parseInt(number);
+			setNumber(newNumber + 1);
 		}
 	};
 
 	const descrease = () => {
 		if (setNumber) {
-			if (number > 0) {
-				setNumber(number - 1);
+			let newNumber = Number.parseInt(number);
+			if (newNumber > 1) {
+				setNumber(newNumber - 1);
 			}
 		}
 	};
