@@ -51,7 +51,7 @@ function Resgister(props) {
             Sign Up
           </button>
         </div>
-        <p>— Or Sign In With —</p>
+        <p>— Or Sig In With —</p>
         <div className={styles.resgister__form__socials}>
           <button>Facebook</button>
           <button>Tiwiter</button>
