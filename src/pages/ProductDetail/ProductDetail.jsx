@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { addItem } from "redux/reducer/cartSlice";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import InputNumber from "components/InputNumber/InputNumber";
 
 const testData = {
 	id: 0,
@@ -71,11 +72,10 @@ function ProductDetail(props) {
 						consectetur adipisicing elit. Cumque, perspiciatis!
 					</div>
 					<div className="lg:flex lg:justify-center lg:items-stretch">
-						<input
-							type="number"
-							value={quantity}
-							onChange={(e) => setQuantity(e.target.value)}
-							className="mb-4 border-2 w-14 h-10 lg:w-16 lg:mr-2 lg:h-12 lg:mb-0 p-2 "
+						<InputNumber
+							className="mb-4 lg:mr-4"
+							number={quantity}
+							setNumber={setQuantity}
 						/>
 						<PrimaryButton
 							onClick={handleAddItemToCart}
