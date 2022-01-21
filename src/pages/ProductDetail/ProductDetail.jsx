@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addItem } from "redux/reducer/cartSlice";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const testData = {
 	id: 0,
@@ -36,6 +37,10 @@ function ProductDetail(props) {
 			quantity: quantity,
 		};
 		dispatch(addItem(product));
+
+		toast.success("Them vao gio hang thanh cong!", {
+			position: toast.POSITION.BOTTOM_RIGHT,
+		});
 	};
 
 	return (
@@ -91,11 +96,6 @@ function ProductDetail(props) {
 				<ProductSmallCard />
 				<ProductSmallCard />
 				<ProductSmallCard />
-			</div>
-
-			<div>Test cart here</div>
-			<div>
-				{shoppingCart && <div>{shoppingCart.cartItemsQuantity}</div>}
 			</div>
 		</div>
 	);

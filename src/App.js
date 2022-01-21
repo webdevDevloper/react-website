@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import Navbar from "./components/Navbar/Navbar";
-import Home from "./pages/Home/Home";
-import Single from "./pages/Single/Single";
-import Write from "./pages/Write/Write";
-import Setting from "./pages/Setting/Setting";
-import LoginForm from "./pages/Login/LoginForm";
-import Resgister from "./pages/Resgister/Resgister";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SinglePost from "./components/SinglePost/SinglePost";
-import { routes } from "./routes/routes";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import { useDispatch } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Slide, ToastContainer } from "react-toastify";
 import { initCart } from "redux/reducer/cartSlice";
-
+import Navbar from "./components/Navbar/Navbar";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SinglePost from "./components/SinglePost/SinglePost";
+import Home from "./pages/Home/Home";
+import LoginForm from "./pages/Login/LoginForm";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import Resgister from "./pages/Resgister/Resgister";
+import Setting from "./pages/Setting/Setting";
+import Write from "./pages/Write/Write";
+import { routes } from "./routes/routes";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
@@ -57,6 +57,18 @@ function App() {
 				/>
 				<Route path="/product/:id" element={<ProductDetail />} />
 			</Routes>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				transition={Slide}
+			/>
 		</BrowserRouter>
 	);
 }
