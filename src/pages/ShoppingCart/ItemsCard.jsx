@@ -3,9 +3,16 @@ import React, { useEffect, useState } from "react";
 import testImage from "assets/22.jpg";
 import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
+import { useDispatch } from "react-redux";
 
 function ItemCard({ item }) {
 	const [quantity, setQuantity] = useState(1);
+
+	const dispatch = useDispatch();
+
+	const handleDeleteItem = () => {
+		// dispatch
+	};
 
 	useEffect(() => {
 		setQuantity(item?.quantity);
@@ -19,7 +26,10 @@ function ItemCard({ item }) {
 	return (
 		<>
 			<div className="mb-6 border md:hidden">
-				<div className="flex justify-between px-4 py-2 cursor-pointer">
+				<div
+					onClick={handleDeleteItem}
+					className="flex justify-between px-4 py-2 cursor-pointer"
+				>
 					<ImCross style={{ color: "#dc2626" }} />
 				</div>
 				<hr />
