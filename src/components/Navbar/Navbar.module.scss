@@ -23,11 +23,14 @@
       font-size: 20px;
       cursor: pointer;
       & > i {
-        margin-left: 14px;
+        margin-left: 6px;
         color: #333;
       }
       @include tablet {
         font-size: 16px;
+      }
+      @include small-tablet {
+        margin: 0 20px;
       }
     }
     &__icon {
@@ -41,6 +44,9 @@
       @include mobile {
         display: block;
       }
+      @include small-tablet {
+        display: block;
+      }
     }
 
     &__menu {
@@ -49,7 +55,7 @@
       grid-gap: 30px;
       text-align: center;
       justify-content: center;
-      width: 70vw;
+      width: 60vw;
       margin: 0 20px;
       &__link {
         font-size: 20px;
@@ -75,7 +81,7 @@
           right: 0;
           top: 50px;
           width: 100%;
-          height: 300px;
+          height: 400px;
           padding: 10px 0;
           background-color: rgba(233, 232, 232);
           text-align: center;
@@ -90,6 +96,38 @@
       @include tablet {
         grid-gap: 20px;
         width: 50vw;
+      }
+      @include small-tablet {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: -110%;
+        right: 0;
+        top: 50px;
+        width: 100%;
+        padding: 10px 0;
+        background-color: rgba(233, 232, 232);
+        opacity: 1;
+
+        &__active {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 50px;
+          width: 100%;
+          height: 44vh;
+          padding: 10px 0;
+          background-color: rgba(233, 232, 232);
+          text-align: center;
+          transition: all 0.3s liner;
+        }
+        &__link {
+          display: table;
+          padding: 28px;
+          width: 100%;
+        }
       }
     }
     &__user {
@@ -151,6 +189,9 @@
       @include mobile {
         display: none;
       }
+      @include small-tablet {
+        margin-left: 150px;
+      }
     }
     &__cart {
       cursor: pointer;
@@ -165,6 +206,9 @@
     }
     @include mobile {
       justify-content: space-around;
+    }
+    @include small-tablet {
+      justify-content: space-between;
     }
   }
 }
