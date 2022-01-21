@@ -1,0 +1,5 @@
+@media only screen and (min-width: 1023px) {
+  .homepage-product:hover .homepage-product-item_content {
+    transform: translateY(-44px);
+  }
+}
