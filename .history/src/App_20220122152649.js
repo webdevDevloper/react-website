@@ -6,7 +6,6 @@ import { initCart } from "redux/reducer/cartSlice";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SinglePost from "./components/SinglePost/SinglePost";
-import AdminPage from "./pages/AdminPage/AdminPage";
 
 import LoginForm from "./pages/Login/LoginForm";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
@@ -65,9 +64,7 @@ function App() {
     //     transition={Slide}
     //   />
     // </BrowserRouter>
-
-    // <HomePage></HomePage>
-    <AdminPage></AdminPage>
+    <HomePage></HomePage>
   );
 }
 

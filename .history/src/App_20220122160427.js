@@ -65,9 +65,7 @@ function App() {
     //     transition={Slide}
     //   />
     // </BrowserRouter>
-
-    // <HomePage></HomePage>
-    <AdminPage></AdminPage>
+    <HomePage></HomePage>
   );
 }
 
