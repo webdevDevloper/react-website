@@ -51,19 +51,19 @@ const HomePage = (props) => {
     },
     {
       img: { Img1 },
-      name: "All You Can Ever Know: A Memoir",
+      name: "Where the Crawdads Sing",
       author: "Kelly Harms",
       price: "$37.00",
     },
     {
       img: { Img1 },
-      name: "Next Level Basic: The Definitive Basic Bitch Handbook",
+      name: "Where the Crawdads Sing",
       author: "Kelly Harms",
       price: "$37.00",
     },
     {
       img: { Img1 },
-      name: "Open Book: A Memoir",
+      name: "Where the Crawdads Sing",
       author: "Kelly Harms",
       price: "$37.00",
     },
@@ -71,7 +71,6 @@ const HomePage = (props) => {
 
   const [plusCategories, setPlusCategories] = useState(false);
   const [plusFeatured, setPlusFeatured] = useState(false);
-  const [searchTerm, setSearchTearm] = useState("");
   // console.log(plus);
   const heightAccordion = (h) => {
     const height = document.querySelector(".homepage-accordion");
@@ -182,10 +181,6 @@ const HomePage = (props) => {
                   <input
                     type="text"
                     className="border-r border-solid outline-gray-500 w-full p-1"
-                    onChange={(event) => {
-                      setSearchTearm(event.target.value);
-                      console.log(event.target.value);
-                    }}
                   />
                   <Button
                     className="!flex !items-center !cursor-default"
@@ -211,45 +206,35 @@ const HomePage = (props) => {
             </div>
 
             <Row className="">
-              {productItem
-                .filter((val) => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.name.toLowerCase().includes(searchTerm.toLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
-                .map((item) => (
-                  <Col
-                    span={6}
-                    className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
+              {productItem.map((item) => (
+                <Col
+                  span={6}
+                  className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"
-                  >
-                    <div className="homepage-product z-50 relative h-full p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3xl border-t-0 hover:border-t-1 hover:border">
-                      <img
-                        src={Img1}
-                        alt=""
-                        className="max-w-full w-full cursor-pointer"
-                      />
-                      <div className="homepage-product-item_content ease-out duration-150 text-[16px] mb-1 pt-4 max-h-28 bg-white">
-                        <h2 className="mb-0 cursor-pointer h-12 line-clamp-2">
-                          {item.name}
-                        </h2>
-                        <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                          {item.author}
-                        </p>
-                        <p className=" mb-1 text-[18px] font-semibold">
-                          {item.price}
-                        </p>
-                      </div>
-                      <div className="cursor-pointer lg:-translate-x-1/2 iphone:m-auto left-2/4 lg:-z-50 lg:absolute bottom-[73px] max-w-[157px] w-full ">
-                        <ShoppingOutlined className="p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl lg:absolute w-full lg:-translate-x-1/2	lg:left-2/4"></ShoppingOutlined>
-                      </div>
+                >
+                  <div className="homepage-product z-50 relative h-full p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3xl border-t-0 hover:border-t-1 hover:border">
+                    <img
+                      src={Img1}
+                      alt=""
+                      className="max-w-full w-full cursor-pointer"
+                    />
+                    <div className="homepage-product-item_content ease-out duration-150 text-[16px] mb-1 pt-4 max-h-28 bg-white">
+                      <h2 className="mb-0 cursor-pointer h-12 line-clamp-2">
+                        {item.name}
+                      </h2>
+                      <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
+                        {item.author}
+                      </p>
+                      <p className=" mb-1 text-[18px] font-semibold">
+                        {item.price}
+                      </p>
                     </div>
-                  </Col>
-                ))}
+                    <div className="cursor-pointer lg:-translate-x-1/2 iphone:m-auto left-2/4 lg:-z-50 lg:absolute bottom-[73px] max-w-[157px] w-full ">
+                      <ShoppingOutlined className="p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl lg:absolute w-full lg:-translate-x-1/2	lg:left-2/4"></ShoppingOutlined>
+                    </div>
+                  </div>
+                </Col>
+              ))}
             </Row>
           </Col>
         </Row>
