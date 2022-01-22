@@ -29,6 +29,32 @@ input[type="number"]::-webkit-outer-spin-button {
 .custom-number-input button:focus {
 	outline: none !important;
 }
+body {
+	min-height: 100vh;
+	line-height: 1.5;
+}
+input,
+button,
+select,
+textarea {
+	font: inherit;
+}
+img,
+picture {
+	display: block;
+	max-width: 100%;
+}
+/* remove animation for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
 
 @tailwind base;
 @tailwind components;
