@@ -214,7 +214,7 @@ const AdminPage = () => {
           <Row gutter={(16, 16)} className="mb-6">
             <Col span={8} className="p-2 ">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="image"
                 placeholder="Image url"
@@ -223,7 +223,7 @@ const AdminPage = () => {
             </Col>
             <Col span={8} className="p-2 ">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="title"
                 placeholder="Enter your title"
@@ -232,7 +232,7 @@ const AdminPage = () => {
             </Col>
             <Col span={8} className="p-2 ">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="author"
                 placeholder="Enter your author"
@@ -241,7 +241,7 @@ const AdminPage = () => {
             </Col>
             <Col span={8} className="p-2 ">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="rating"
                 placeholder="Rating"
@@ -252,7 +252,7 @@ const AdminPage = () => {
             </Col>
             <Col span={8} className="p-2 ">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="price"
                 placeholder="Price"
@@ -266,6 +266,8 @@ const AdminPage = () => {
                 <input type="checkbox" name="bestSeller" id="best-seller" />
               </div>
             </Col>
+            <Col span={8} className="p-2 "></Col>
+            <Col span={8} className="p-2 "></Col>
           </Row>
           <button
             type="submit"

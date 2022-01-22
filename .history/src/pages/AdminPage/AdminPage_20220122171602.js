@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import Styles from "./AdminPage.module.scss";
 
 import {
   MinusOutlined,
@@ -206,42 +205,42 @@ const AdminPage = () => {
 
   return (
     <div>
-      <div className="my-3 mx-4 border-2 border-solid rounded-md p-2">
+      <div className="my-3 mx-4 border-2 border-solid rounded-md">
         <div className="p-2 border-b">
           <div className="">Thêm sản phẩm</div>
         </div>
         <form className="form-post" autocomplete="off">
-          <Row gutter={(16, 16)} className="mb-6">
-            <Col span={8} className="p-2 ">
+          <Row gutter={(16, 16)}>
+            <Col span={8} className="p-2 mx-1">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="image"
                 placeholder="Image url"
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8} className="p-2 mx-1">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="title"
                 placeholder="Enter your title"
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8} className="p-2 mx-1">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="author"
                 placeholder="Enter your author"
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8} className="p-2 mx-1">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="rating"
                 placeholder="Rating"
@@ -250,9 +249,9 @@ const AdminPage = () => {
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8} className="p-2 mx-1">
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
                 type="text"
                 name="price"
                 placeholder="Price"
@@ -260,26 +259,29 @@ const AdminPage = () => {
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8} className="p-2 mx-1">
               <div>
                 <label for="best-seller">Best Seller?</label>
                 <input type="checkbox" name="bestSeller" id="best-seller" />
               </div>
             </Col>
+            <Col span={8} className="p-2 mx-1">
+              <input
+                type="text"
+                className="
+                filter py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
+              />
+            </Col>
+            <Col span={8} className="p-2 mx-1"></Col>
           </Row>
           <button
             type="submit"
-            className={`${Styles.form_submit} py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none`}
+            className="form-submit py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none"
           >
-            Add Your Product
+            Add course
           </button>
         </form>
-        <div className="course-list"></div>
-        <input
-          type="text"
-          className="
-                filter py-[10px] px-[15px] border border-solid rounded-md max-w-[25%] w-full outline-none"
-        />
+        <div className="course-list"></div>;
       </div>
     </div>
   );

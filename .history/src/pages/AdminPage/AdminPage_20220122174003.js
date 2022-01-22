@@ -266,6 +266,8 @@ const AdminPage = () => {
                 <input type="checkbox" name="bestSeller" id="best-seller" />
               </div>
             </Col>
+            <Col span={8} className="p-2 "></Col>
+            <Col span={8} className="p-2 "></Col>
           </Row>
           <button
             type="submit"

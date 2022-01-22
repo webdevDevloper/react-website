@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import Styles from "./AdminPage.module.scss";
 
 import {
   MinusOutlined,
@@ -21,7 +20,8 @@ const AdminPage = () => {
   // const courseList = document.querySelector(".course-list");
   // const formPost = document.querySelector(".form-post");
   // const formSubmit = document.querySelector(".form-submit");
-  // const filterInput = document.querySelector(".filter");
+  // const filterInput
+  className="px-[15px] py-[10px]" = document.querySelector(".filter");
   // let updateId = null;
   // // git clone
   // function debounceFn(func, wait, immediate) {
@@ -40,7 +40,8 @@ const AdminPage = () => {
   //   };
   // }
 
-  // filterInput.addEventListener(
+  // filterInput
+  className="px-[15px] py-[10px]".addEventListener(
   //   "keydown",
   //   debounceFn(function (e) {
   //     let path = endpoint;
@@ -206,42 +207,42 @@ const AdminPage = () => {
 
   return (
     <div>
-      <div className="my-3 mx-4 border-2 border-solid rounded-md p-2">
+      <div className="my-3 mx-4 border-2 border-solid rounded-md">
         <div className="p-2 border-b">
           <div className="">Thêm sản phẩm</div>
         </div>
         <form className="form-post" autocomplete="off">
-          <Row gutter={(16, 16)} className="mb-6">
-            <Col span={8} className="p-2 ">
+          <Row>
+            <Col span={8}>
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+              className="px-[15px] py-[10px]"
                 type="text"
                 name="image"
                 placeholder="Image url"
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8}>
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+              className="px-[15px] py-[10px]"
                 type="text"
                 name="title"
                 placeholder="Enter your title"
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8}>
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+              className="px-[15px] py-[10px]"
                 type="text"
                 name="author"
                 placeholder="Enter your author"
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8}>
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+              className="px-[15px] py-[10px]"
                 type="text"
                 name="rating"
                 placeholder="Rating"
@@ -250,9 +251,9 @@ const AdminPage = () => {
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8}>
               <input
-                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+              className="px-[15px] py-[10px]"
                 type="text"
                 name="price"
                 placeholder="Price"
@@ -260,26 +261,29 @@ const AdminPage = () => {
                 required
               />
             </Col>
-            <Col span={8} className="p-2 ">
+            <Col span={8}>
               <div>
                 <label for="best-seller">Best Seller?</label>
-                <input type="checkbox" name="bestSeller" id="best-seller" />
+                <input
+                className="px-[15px] py-[10px]" type="checkbox" name="bestSeller" id="best-seller" />
               </div>
             </Col>
+            <Col span={8}></Col>
+            <input
+            className="px-[15px] py-[10px]"
+              type="text"
+              name="buyAmount"
+              placeholder="Buy amount"
+              value="0"
+            />
+            <button type="submit" className="form-submit">
+              Add course
+            </button>
           </Row>
-          <button
-            type="submit"
-            className={`${Styles.form_submit} py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none`}
-          >
-            Add Your Product
-          </button>
         </form>
-        <div className="course-list"></div>
         <input
-          type="text"
-          className="
-                filter py-[10px] px-[15px] border border-solid rounded-md max-w-[25%] w-full outline-none"
-        />
+        className="px-[15px] py-[10px]" type="text" className="filter" name="filter" />
+        <div className="course-list"></div>;
       </div>
     </div>
   );

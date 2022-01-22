@@ -1,0 +1,65 @@
+import React from "react";
+import axios from "axios";
+
+import {
+  MinusOutlined,
+  UnorderedListOutlined,
+  AppstoreOutlined,
+  DownOutlined,
+  CaretDownOutlined,
+  ShoppingOutlined,
+  SearchOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import { Button, Row, Col } from "antd";
+
+const AdminPage = () => {
+  // const {image, title, author, rating...addPost.} = course;
+
+  return (
+    <div>
+      {" "}
+      <form className="form-post" autocomplete="off">
+        <input type="text" name="image" placeholder="Image url" required />
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter your title"
+          required
+        />
+        <input
+          type="text"
+          name="author"
+          placeholder="Enter your author"
+          required
+        />
+        <input
+          type="text"
+          name="rating"
+          placeholder="Rating"
+          min="1"
+          max="5"
+          required
+        />
+        <input type="text" name="price" placeholder="Price" min="1" required />
+        <div>
+          <label for="best-seller">Best Seller?</label>
+          <input type="checkbox" name="bestSeller" id="best-seller" />
+        </div>
+        <input
+          type="text"
+          name="buyAmount"
+          placeholder="Buy amount"
+          value="0"
+        />
+        <button type="submit" className="form-submit">
+          Add course
+        </button>
+      </form>
+      <input type="text" className="filter" name="filter" />
+      <div className="course-list"></div>;
+    </div>
+  );
+};
+
+export default AdminPage;

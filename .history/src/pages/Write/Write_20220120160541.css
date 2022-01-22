@@ -34,7 +34,7 @@
   font-family: inherit;
   font-size: 20px;
 }
-/* .form-submit {
+.form-submit {
   position: absolute;
   top: 120px;
   right: 50px;
@@ -47,7 +47,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-} */
+}
 .write-img {
   margin-left: 150px;
   width: 70vw;
