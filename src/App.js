@@ -16,6 +16,7 @@ import { routes } from "./routes/routes";
 import "react-toastify/dist/ReactToastify.css";
 import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import HomePage from "./pages/HomePage/HomePage";
+import { FooterContainer } from "containers/footer";
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
@@ -33,18 +34,9 @@ function App() {
 					path="/resgister"
 					element={user ? <HomePage /> : <Resgister />}
 				/>
-				<Route
-					path="/login"
-					element={user ? <HomePage /> : <LoginForm />}
-				/>
-				<Route
-					path="/write"
-					element={user ? <Write /> : <Resgister />}
-				/>
-				<Route
-					path="/setting"
-					element={user ? <Setting /> : <Resgister />}
-				/>
+				<Route path="/login" element={user ? <HomePage /> : <LoginForm />} />
+				<Route path="/write" element={user ? <Write /> : <Resgister />} />
+				<Route path="/setting" element={user ? <Setting /> : <Resgister />} />
 				<Route
 					path="/post/:postId"
 					element={user ? <SinglePost /> : <LoginForm />}
@@ -72,6 +64,7 @@ function App() {
 				pauseOnHover
 				transition={Slide}
 			/>
+			<FooterContainer />
 		</BrowserRouter>
 	);
 }
