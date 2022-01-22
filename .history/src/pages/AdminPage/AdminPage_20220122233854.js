@@ -34,11 +34,11 @@ const AdminPage = () => {
         bestSeller: this.elements["bestSeller"].checked,
         buyAmount: +this.elements["buyAmount"].value,
       };
-    };
+    }
     formPost.addEventListener("submit", formPostFunction);
     return () => {
-      formPost.removeEventListener("submit", formPostFunction);
-    };
+      formPost.removeEventListener("submit", async function(e))
+    }
   }, []);
   const getAllClient = () => {
     axios

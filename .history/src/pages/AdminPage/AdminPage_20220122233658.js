@@ -23,7 +23,7 @@ const AdminPage = () => {
     getAllClient();
   }, []);
   useEffect(() => {
-    const formPostFunction = async function (e) {
+    formPost.addEventListener("submit", async function (e) {
       e.preventDefault();
       const course = {
         title: this.elements["title"].value,
@@ -34,11 +34,7 @@ const AdminPage = () => {
         bestSeller: this.elements["bestSeller"].checked,
         buyAmount: +this.elements["buyAmount"].value,
       };
-    };
-    formPost.addEventListener("submit", formPostFunction);
-    return () => {
-      formPost.removeEventListener("submit", formPostFunction);
-    };
+    });
   }, []);
   const getAllClient = () => {
     axios

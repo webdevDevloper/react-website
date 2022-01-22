@@ -1,5 +1,17 @@
 /* json placeholder */
+.form-post {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+  padding: 50px;
+}
 
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
+  padding: 25px;
+}
 .course-image {
   height: 300px;
   position: relative;

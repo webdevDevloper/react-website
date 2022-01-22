@@ -22,41 +22,18 @@ const AdminPage = () => {
   useEffect(() => {
     getAllClient();
   }, []);
-  useEffect(() => {
-    const formPostFunction = async function (e) {
-      e.preventDefault();
-      const course = {
-        title: this.elements["title"].value,
-        author: this.elements["author"].value,
-        rating: +this.elements["rating"].value,
-        price: +this.elements["price"].value,
-        image: this.elements["image"].value,
-        bestSeller: this.elements["bestSeller"].checked,
-        buyAmount: +this.elements["buyAmount"].value,
-      };
-    };
-    formPost.addEventListener("submit", formPostFunction);
-    return () => {
-      formPost.removeEventListener("submit", formPostFunction);
-    };
-  }, []);
   const getAllClient = () => {
     axios
       .get(`http://localhost:3000/courses`)
       .then(({ data }) => {
-        setDatas(data);
+        setDatas(data?.data);
         // console.log(data);
       })
       .catch((err) => {
         console.error("error");
       });
   };
-
-  const endpoint = "http://localhost:3000/courses";
-  const courseList = document.querySelector(".course-list");
-  const formPost = document.querySelector(".form-post");
-  const formSubmit = document.querySelector(".form-submit");
-  const filterInput = document.querySelector(".filter");
+  console.log(datas);
   return (
     <div>
       <div className="my-3 mx-4 border-2 border-solid rounded-md p-2">
@@ -96,6 +73,17 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
+                name="rating"
+                placeholder="Rating"
+                min="1"
+                max="5"
+                required
+              />
+            </Col>
+            <Col span={8} className="p-2 ">
+              <input
+                className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
+                type="text"
                 name="price"
                 placeholder="Price"
                 min="1"
@@ -103,10 +91,8 @@ const AdminPage = () => {
               />
             </Col>
             <Col span={8} className="p-2 ">
-              <div className="flex items-start gap-1 ">
-                <label for="best-seller" className="leading-[1] cursor-pointer">
-                  Best Seller?
-                </label>
+              <div>
+                <label for="best-seller">Best Seller?</label>
                 <input type="checkbox" name="bestSeller" id="best-seller" />
               </div>
             </Col>
@@ -118,48 +104,18 @@ const AdminPage = () => {
             Add Your Product
           </button>
         </form>
-        <div className="product-list"></div>
-
+        <div className="course-list"></div>
         <input
           type="text"
           className="
-                filter py-[10px] px-[15px] border border-solid rounded-md max-w-[25%] w-full outline-none my-5"
-          placeholder="Search your product"
+                filter py-[10px] px-[15px] border border-solid rounded-md max-w-[25%] w-full outline-none"
         />
-        <div>
-          <Row>
-            {datas.map((item) => (
-              <Col
-                span={6}
-                className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
-                  lg:!max-w-[25%] lg:!flex-ant"
-              >
-                <div className="homepage-product z-50 relative h-full max-h-[100%] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border">
-                  <img
-                    src={item?.image}
-                    alt=""
-                    className="max-w-full w-full cursor-pointer object-cover h-[100%] max-h-[50%]"
-                  />
-                  <div className=" ease-out duration-150 text-[16px] mb-1 pt-4 max-h-28 bg-white">
-                    <h2 className="mb-0 cursor-pointer h-12 line-clamp-2">
-                      {item.title}
-                    </h2>
-                    <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                      {item.author}
-                    </p>
-                    <p className=" mb-1 text-[18px] font-semibold">
-                      {item.price}
-                    </p>
-                  </div>
-                  <div className="cursor-pointer  iphone:m-auto  lg:-z-50  bottom-[73px] max-w-[157px] w-full ">
-                    <ShoppingOutlined className="p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl  w-full"></ShoppingOutlined>
-                  </div>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </div>
-        {/* <div>{JSON.stringify(datas)}</div> */}
+        {/* <div>
+          {data?.map((item) => {
+            <div>{item?.id}</div>;
+          })}
+        </div> */}
+        <div>{JSON.stringify(datas)}</div>
       </div>
     </div>
   );

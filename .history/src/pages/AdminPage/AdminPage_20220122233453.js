@@ -22,24 +22,6 @@ const AdminPage = () => {
   useEffect(() => {
     getAllClient();
   }, []);
-  useEffect(() => {
-    const formPostFunction = async function (e) {
-      e.preventDefault();
-      const course = {
-        title: this.elements["title"].value,
-        author: this.elements["author"].value,
-        rating: +this.elements["rating"].value,
-        price: +this.elements["price"].value,
-        image: this.elements["image"].value,
-        bestSeller: this.elements["bestSeller"].checked,
-        buyAmount: +this.elements["buyAmount"].value,
-      };
-    };
-    formPost.addEventListener("submit", formPostFunction);
-    return () => {
-      formPost.removeEventListener("submit", formPostFunction);
-    };
-  }, []);
   const getAllClient = () => {
     axios
       .get(`http://localhost:3000/courses`)
