@@ -77,7 +77,28 @@ export const cartSlice = createSlice({
 			}
 		},
 
-		updateItem: (state, action) => {},
+		updateItem: (state, action) => {
+			const itemInfo = action.payload;
+			if (itemInfo) {
+				let newCart = [...state.cartItems];
+				let exsitedItemIndex = newCart.findIndex(
+					(e) => e.id === itemInfo.id
+				);
+				if (exsitedItemIndex >= 0) {
+					newCart[exsitedItemIndex] = {
+						...newCart[exsitedItemIndex],
+						quantity: itemInfo.quantity,
+					};
+
+					state.cartItems = newCart;
+					state.cartItemsQuantity = calcQuantity(newCart);
+					state.cartItemsTotal = calcCartCost(newCart);
+					setLocalStorage(CART_STORAGE, newCart);
+				}
+			} else {
+				console.warn("Empty item");
+			}
+		},
 
 		removeItem: (state, action) => {
 			const item = action.payload;

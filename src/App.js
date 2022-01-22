@@ -6,7 +6,7 @@ import { initCart } from "redux/reducer/cartSlice";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SinglePost from "./components/SinglePost/SinglePost";
-import Home from "./pages/Home/Home";
+
 import LoginForm from "./pages/Login/LoginForm";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Resgister from "./pages/Resgister/Resgister";
@@ -14,6 +14,8 @@ import Setting from "./pages/Setting/Setting";
 import Write from "./pages/Write/Write";
 import { routes } from "./routes/routes";
 import "react-toastify/dist/ReactToastify.css";
+import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
+import HomePage from "./pages/HomePage/HomePage";
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
@@ -26,14 +28,14 @@ function App() {
 		<BrowserRouter>
 			<Navbar />
 			<Routes>
-				<Route path="/home" element={<Home />} />
+				<Route path="/home" element={<HomePage />} />
 				<Route
 					path="/resgister"
-					element={user ? <Home /> : <Resgister />}
+					element={user ? <HomePage /> : <Resgister />}
 				/>
 				<Route
 					path="/login"
-					element={user ? <Home /> : <LoginForm />}
+					element={user ? <HomePage /> : <LoginForm />}
 				/>
 				<Route
 					path="/write"
@@ -56,6 +58,7 @@ function App() {
 					}
 				/>
 				<Route path="/product/:id" element={<ProductDetail />} />
+				<Route path="/cart" element={<ShoppingCart />} />
 			</Routes>
 			<ToastContainer
 				position="bottom-right"

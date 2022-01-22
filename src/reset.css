@@ -1,19 +1,60 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 a {
-  text-decoration: none;
+	text-decoration: none;
+	color: #000;
 }
 ul {
-  list-style: none;
+	list-style: none;
 }
 img {
-  width: 100%;
+	width: 100%;
 }
 .link {
-  color: inherit;
+	color: inherit;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.custom-number-input input:focus {
+	outline: none !important;
+}
+
+.custom-number-input button:focus {
+	outline: none !important;
+}
+body {
+	min-height: 100vh;
+	line-height: 1.5;
+}
+input,
+button,
+select,
+textarea {
+	font: inherit;
+}
+img,
+picture {
+	display: block;
+	max-width: 100%;
+}
+/* remove animation for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }
 
 @tailwind base;
