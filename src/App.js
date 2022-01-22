@@ -14,6 +14,7 @@ import Setting from "./pages/Setting/Setting";
 import Write from "./pages/Write/Write";
 import { routes } from "./routes/routes";
 import "react-toastify/dist/ReactToastify.css";
+import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
 					}
 				/>
 				<Route path="/product/:id" element={<ProductDetail />} />
+				<Route path="/cart" element={<ShoppingCart />} />
 			</Routes>
 			<ToastContainer
 				position="bottom-right"
