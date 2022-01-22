@@ -14,7 +14,7 @@ import {
 import { Button, Row, Col } from "antd";
 
 const AdminPage = () => {
-  return <div>wd</div>;
+  return <div></div>;
 };
 
 export default AdminPage;

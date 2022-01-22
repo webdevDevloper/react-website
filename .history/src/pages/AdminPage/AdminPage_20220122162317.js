@@ -1,4 +1,5 @@
 import React from "react";
+import "./HomePage.css";
 import axios from "axios";
 
 import {
@@ -14,7 +15,7 @@ import {
 import { Button, Row, Col } from "antd";
 
 const AdminPage = () => {
-  return <div>wd</div>;
+  return <div></div>;
 };
 
 export default AdminPage;
