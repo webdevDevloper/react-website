@@ -1,4 +1,5 @@
 import axios from "axios";
+import queryString from "query-string";
 
 const getAccessToken = () => {
 	const token = window.localStorage.getItem("accessToken");
@@ -7,6 +8,10 @@ const getAccessToken = () => {
 
 export const axiosInstance = axios.create({
 	baseURL: "http://api.doanky5.huyhoangdev.engineer/api",
+	// headers: {
+	// 	"Content-Type": "application/json",
+	// },
+	// paramsSerializer: (params) => queryString.stringify(params),
 });
 
 axiosInstance.interceptors.request.use(
