@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
-import { initCart } from "redux/reducer/cartSlice";
+// import { initCart } from "redux/reducer/cartSlice";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SinglePost from "./components/SinglePost/SinglePost";
@@ -17,12 +17,12 @@ import { routes } from "./routes/routes";
 import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import HomePage from "./pages/HomePage/HomePage";
 function App() {
-  // const user = false;
-  // const dispatch = useDispatch();
+  const user = false;
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(initCart());
-  // }, []);
+  useEffect(() => {
+    dispatch(initCart());
+  }, []);
 
   return (
     // <BrowserRouter>

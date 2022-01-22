@@ -17,7 +17,7 @@ import { routes } from "./routes/routes";
 import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import HomePage from "./pages/HomePage/HomePage";
 function App() {
-  // const user = false;
+  const user = false;
   // const dispatch = useDispatch();
 
   // useEffect(() => {

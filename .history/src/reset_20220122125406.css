@@ -55,7 +55,3 @@ picture {
     scroll-behavior: auto !important;
   }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

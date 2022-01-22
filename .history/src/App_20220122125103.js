@@ -13,16 +13,16 @@ import Resgister from "./pages/Resgister/Resgister";
 import Setting from "./pages/Setting/Setting";
 import Write from "./pages/Write/Write";
 import { routes } from "./routes/routes";
-// import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import HomePage from "./pages/HomePage/HomePage";
 function App() {
-  // const user = false;
-  // const dispatch = useDispatch();
+  const user = false;
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(initCart());
-  // }, []);
+  useEffect(() => {
+    dispatch(initCart());
+  }, []);
 
   return (
     // <BrowserRouter>
