@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Styles from "./AdminPage.module.scss";
 import "../AdminPage/AdminPage.css";
-import productApi from "apis/productApi";
 
 import {
   MinusOutlined,
@@ -19,41 +18,24 @@ import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
+  const endpoint = "http://localhost:3000/courses";
+  // useEffect(() => {
+  //   getAllClient();
+  // }, []);
+  const getAllClient = async () => {
+    const response = await fetch(endpoint);
+    const data = await response.json().then((data) => {
+      setDatas(data?.data);
+    });
+  };
+  console.log(datas);
+
   const [data, setData] = useState({
     image: "",
     title: "",
     author: "",
     price: "",
   });
-  const endpoint = "http://localhost:3000/courses";
-
-  useEffect(() => {
-    return () => {
-      data.image && URL.revokeObjectURL(data.image.preview);
-    };
-  }, [data.image]);
-  const handlePreviewAvatar = (e) => {
-    const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setData({ ...data, image: file.preview });
-  };
-  // useEffect(() => {
-  //   addProduct();
-  // });
-  useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const response = await productApi.getAll();
-        setDatas(response);
-      } catch (error) {
-        console.log("Failed to fetch product list: ", error);
-      }
-    };
-    fetchProductList();
-  }, []);
-
-  console.log(datas);
-
   console.log(data);
   async function addProduct(post) {
     try {
@@ -65,7 +47,7 @@ const AdminPage = () => {
         body: JSON.stringify(post),
       });
     } catch (err) {
-      console.log(err);
+      console.war(err);
     }
   }
   async function handleSubmit(e) {
@@ -77,6 +59,7 @@ const AdminPage = () => {
       price: data.price,
     };
     addProduct(postData);
+    getAllClient();
     setData({ image: "", title: "", author: "", price: "" });
   }
   return (
@@ -90,12 +73,12 @@ const AdminPage = () => {
             <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
-                type="file"
+                type="text"
                 name="image"
-                id="input-file"
                 placeholder="Image url"
                 required
-                onChange={handlePreviewAvatar}
+                value={data.image}
+                onChange={(e) => setData({ ...data, image: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -161,13 +144,12 @@ const AdminPage = () => {
           <Row>
             {datas.map((item) => (
               <Col
-                key={item.id}
                 span={6}
                 className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"
               >
                 <div className="homepage-product z-50 relative h-full max-h-[100%] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border">
-                  <img
+                  <image
                     src={item?.image}
                     alt=""
                     className="max-w-full w-full cursor-pointer object-cover h-[100%] max-h-[50%]"

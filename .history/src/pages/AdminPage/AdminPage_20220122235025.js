@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Styles from "./AdminPage.module.scss";
 import "../AdminPage/AdminPage.css";
-import productApi from "apis/productApi";
 
 import {
   MinusOutlined,
@@ -19,83 +18,75 @@ import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
-  const [data, setData] = useState({
-    image: "",
-    title: "",
-    author: "",
-    price: "",
-  });
-  const endpoint = "http://localhost:3000/courses";
-
+  const [_id, set_Id] = useState("");
+  //getEffect
   useEffect(() => {
-    return () => {
-      data.image && URL.revokeObjectURL(data.image.preview);
-    };
-  }, [data.image]);
-  const handlePreviewAvatar = (e) => {
-    const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setData({ ...data, image: file.preview });
+    getAllClient();
+  }, []);
+  const getAllClient = () => {
+    axios
+      .get(`http://localhost:3000/courses`)
+      .then(({ data }) => {
+        setDatas(data);
+        // console.log(data);
+      })
+      .catch((err) => {
+        console.error("error");
+      });
   };
-  // useEffect(() => {
-  //   addProduct();
-  // });
+  //addPost
+  useState(() => {}, []);
+  const addPost = async (post) => {
+    try {
+      const response = await axios.post("http://localhost:3456/posts", {
+        title: post.title,
+        description: post.description,
+        author: post.author,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //formPostFunction
   useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const response = await productApi.getAll();
-        setDatas(response);
-      } catch (error) {
-        console.log("Failed to fetch product list: ", error);
-      }
+    const formPostFunction = async function (e) {
+      e.preventDefault();
+      const course = {
+        title: this.elements["title"].value,
+        author: this.elements["author"].value,
+        rating: +this.elements["rating"].value,
+        price: +this.elements["price"].value,
+        image: this.elements["image"].value,
+        bestSeller: this.elements["bestSeller"].checked,
+        buyAmount: +this.elements["buyAmount"].value,
+      };
     };
-    fetchProductList();
+    formPost.addEventListener("submit", formPostFunction);
+    return () => {
+      formPost.removeEventListener("submit", formPostFunction);
+    };
   }, []);
 
-  console.log(datas);
-
-  console.log(data);
-  async function addProduct(post) {
-    try {
-      await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(post),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  async function handleSubmit(e) {
-    e.preventDefault();
-    let postData = {
-      image: data.image,
-      title: data.title,
-      author: data.author,
-      price: data.price,
-    };
-    addProduct(postData);
-    setData({ image: "", title: "", author: "", price: "" });
-  }
+  const endpoint = "http://localhost:3000/courses";
+  const courseList = document.querySelector(".course-list");
+  const formPost = document.querySelector(".form-post");
+  const formSubmit = document.querySelector(".form-submit");
+  const filterInput = document.querySelector(".filter");
   return (
     <div>
       <div className="my-3 mx-4 border-2 border-solid rounded-md p-2">
         <div className="p-2 border-b">
           <div className="">Thêm sản phẩm</div>
         </div>
-        <form className="form-post" autocomplete="off" method="post">
+        <form className="form-post" autocomplete="off">
           <Row gutter={(16, 16)} className="mb-6">
             <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
-                type="file"
+                type="text"
                 name="image"
-                id="input-file"
                 placeholder="Image url"
                 required
-                onChange={handlePreviewAvatar}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -105,8 +96,6 @@ const AdminPage = () => {
                 name="title"
                 placeholder="Enter your title"
                 required
-                value={data.title}
-                onChange={(e) => setData({ ...data, title: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -116,8 +105,6 @@ const AdminPage = () => {
                 name="author"
                 placeholder="Enter your author"
                 required
-                value={data.author}
-                onChange={(e) => setData({ ...data, author: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -128,8 +115,6 @@ const AdminPage = () => {
                 placeholder="Price"
                 min="1"
                 required
-                value={data.price}
-                onChange={(e) => setData({ ...data, price: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -144,7 +129,6 @@ const AdminPage = () => {
           <button
             type="submit"
             className={`${Styles.form_submit} py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none`}
-            onClick={handleSubmit}
           >
             Add Your Product
           </button>
@@ -161,7 +145,6 @@ const AdminPage = () => {
           <Row>
             {datas.map((item) => (
               <Col
-                key={item.id}
                 span={6}
                 className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"

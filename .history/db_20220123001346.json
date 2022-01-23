@@ -19,21 +19,6 @@
       "bestSeller": false,
       "buyAmount": 99,
       "id": 2
-    },
-    {
-      "method": "POST",
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "{\"image\":\"blob:http://localhost:3001/c2594b8a-ffe5-49e0-b139-ebbe01d9ed0f\",\"title\":\"hung\",\"author\":\"hung\",\"price\":\"10\"}",
-      "id": 3
-    },
-    {
-      "image": "blob:http://localhost:3001/545f696a-b850-41b9-a2b9-03ae513b5611",
-      "title": "qwe",
-      "author": "qwe",
-      "price": "qwe",
-      "id": 4
     }
   ]
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Styles from "./AdminPage.module.scss";
 import "../AdminPage/AdminPage.css";
-import productApi from "apis/productApi";
 
 import {
   MinusOutlined,
@@ -19,65 +18,99 @@ import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
-  const [data, setData] = useState({
-    image: "",
-    title: "",
-    author: "",
-    price: "",
-  });
-  const endpoint = "http://localhost:3000/courses";
+  const [_id, set_Id] = useState("");
+  //getEffect
+  // useEffect(() => {
+  //   getAllClient();
+  // }, []);
+  // const getAllClient = () => {
+  //   axios
+  //     .get(`http://localhost:3000/courses`)
+  //     .then(({ data }) => {
+  //       setDatas(data);
+  //       // console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("error");
+  //     });
+  // };
+  //addPost
+  // useState(() => {
+  //   addPost();
+  // }, []);
 
+  const endpoint = "http://localhost:3000/courses";
+  const courseList = document.querySelector(".course-list");
+  const formPost = document.querySelector(".form-post");
+  const formSubmit = document.querySelector(".form-submit");
+  const filterInput = document.querySelector(".filter");
+  // console.log(formPost);
+  // useEffect(() => {
+  //   addProduct();
+  // }, []);
+  // function addProduct(image, title, author, price) {
+  //   fetch(endpoint, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       image,
+  //       title,
+  //       author,
+  //       price,
+  //     }),
+  //     headers: {
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => console.log(json));
+  // }
+  //formPostFunction
+  // useEffect(() => {
+  //   const formPostFunction = function (e) {
+  //     e.preventDefault();
+  //     console.log(this);
+  //   };
+  //   formPost.addEventListener("submit", formPostFunction);
+  //   return () => {
+  //     formPost.removeEventListener("submit", formPostFunction);
+  //   };
+  // }, []);
+  const [data, setData] = useState({
+    img: "",
+    title: "",
+    description: "",
+  });
+  console.log(data);
   useEffect(() => {
     return () => {
-      data.image && URL.revokeObjectURL(data.image.preview);
+      data.img && URL.revokeObjectURL(data.img.preview);
     };
-  }, [data.image]);
+  }, [data.img]);
   const handlePreviewAvatar = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setData({ ...data, image: file.preview });
+    setData({ ...data, img: file.preview });
   };
-  // useEffect(() => {
-  //   addProduct();
-  // });
-  useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const response = await productApi.getAll();
-        setDatas(response);
-      } catch (error) {
-        console.log("Failed to fetch product list: ", error);
-      }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let postData = {
+      img: data.img,
+      title: data.title,
+      description: data.description,
     };
-    fetchProductList();
-  }, []);
-
-  console.log(datas);
-
-  console.log(data);
-  async function addProduct(post) {
     try {
-      await fetch(endpoint, {
+      fetch("http://localhost:3000/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(post),
+        body: JSON.stringify(postData),
       });
     } catch (err) {
-      console.log(err);
+      console.war(err);
     }
-  }
-  async function handleSubmit(e) {
-    e.preventDefault();
-    let postData = {
-      image: data.image,
-      title: data.title,
-      author: data.author,
-      price: data.price,
-    };
-    addProduct(postData);
-    setData({ image: "", title: "", author: "", price: "" });
+    setData({ img: "", title: "", description: "" });
   }
   return (
     <div>
@@ -90,12 +123,10 @@ const AdminPage = () => {
             <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
-                type="file"
+                type="text"
                 name="image"
-                id="input-file"
                 placeholder="Image url"
                 required
-                onChange={handlePreviewAvatar}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -105,8 +136,6 @@ const AdminPage = () => {
                 name="title"
                 placeholder="Enter your title"
                 required
-                value={data.title}
-                onChange={(e) => setData({ ...data, title: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -116,8 +145,6 @@ const AdminPage = () => {
                 name="author"
                 placeholder="Enter your author"
                 required
-                value={data.author}
-                onChange={(e) => setData({ ...data, author: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -128,8 +155,6 @@ const AdminPage = () => {
                 placeholder="Price"
                 min="1"
                 required
-                value={data.price}
-                onChange={(e) => setData({ ...data, price: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -161,7 +186,6 @@ const AdminPage = () => {
           <Row>
             {datas.map((item) => (
               <Col
-                key={item.id}
                 span={6}
                 className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"

@@ -40,6 +40,7 @@ const AdminPage = () => {
   // useEffect(() => {
   //   addProduct();
   // });
+  const [productList, setProductList] = useState([]);
   useEffect(() => {
     const fetchProductList = async () => {
       try {
@@ -52,12 +53,12 @@ const AdminPage = () => {
     fetchProductList();
   }, []);
 
-  console.log(datas);
+  // console.log(datas);
 
   console.log(data);
   async function addProduct(post) {
     try {
-      await fetch(endpoint, {
+      await axios.post(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -167,7 +168,7 @@ const AdminPage = () => {
                   lg:!max-w-[25%] lg:!flex-ant"
               >
                 <div className="homepage-product z-50 relative h-full max-h-[100%] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border">
-                  <img
+                  <image
                     src={item?.image}
                     alt=""
                     className="max-w-full w-full cursor-pointer object-cover h-[100%] max-h-[50%]"

@@ -19,32 +19,17 @@ import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
-  const [data, setData] = useState({
-    image: "",
-    title: "",
-    author: "",
-    price: "",
-  });
   const endpoint = "http://localhost:3000/courses";
-
   useEffect(() => {
-    return () => {
-      data.image && URL.revokeObjectURL(data.image.preview);
-    };
-  }, [data.image]);
-  const handlePreviewAvatar = (e) => {
-    const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setData({ ...data, image: file.preview });
-  };
-  // useEffect(() => {
-  //   addProduct();
-  // });
+    addProduct();
+  }, []);
+  const [productList, setProductList] = useState([]);
   useEffect(() => {
     const fetchProductList = async () => {
       try {
         const response = await productApi.getAll();
         setDatas(response);
+        setProductList(response);
       } catch (error) {
         console.log("Failed to fetch product list: ", error);
       }
@@ -52,12 +37,18 @@ const AdminPage = () => {
     fetchProductList();
   }, []);
 
-  console.log(datas);
+  // console.log(datas);
 
+  const [data, setData] = useState({
+    image: "",
+    title: "",
+    author: "",
+    price: "",
+  });
   console.log(data);
   async function addProduct(post) {
     try {
-      await fetch(endpoint, {
+      await axios.post(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,12 +81,12 @@ const AdminPage = () => {
             <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
-                type="file"
+                type="text"
                 name="image"
-                id="input-file"
                 placeholder="Image url"
                 required
-                onChange={handlePreviewAvatar}
+                value={data.image}
+                onChange={(e) => setData({ ...data, image: e.target.value })}
               />
             </Col>
             <Col span={8} className="p-2 ">
@@ -167,7 +158,7 @@ const AdminPage = () => {
                   lg:!max-w-[25%] lg:!flex-ant"
               >
                 <div className="homepage-product z-50 relative h-full max-h-[100%] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border">
-                  <img
+                  <image
                     src={item?.image}
                     alt=""
                     className="max-w-full w-full cursor-pointer object-cover h-[100%] max-h-[50%]"
