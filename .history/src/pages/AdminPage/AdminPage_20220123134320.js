@@ -28,7 +28,6 @@ const AdminPage = () => {
     title: "",
     amount: "",
     price: "",
-    description: "",
   });
   const endpoint = "http://localhost:3000/courses";
   //get Image
@@ -99,12 +98,11 @@ const AdminPage = () => {
       title: data.title,
       amount: data.amount,
       price: data.price,
-      description: data.description,
     };
     addProduct(posts);
     fetchProductList();
 
-    setData({ image: "", title: "", amount: "", price: "", description: "" });
+    setData({ image: "", title: "", amount: "", price: "" });
   }
   return (
     <div>
@@ -155,10 +153,10 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
-                name="description"
-                placeholder="Enter your description"
+                name="title"
+                placeholder="Enter your title"
                 required
-                value={data.description}
+                value={data.title}
                 onChange={(e) =>
                   setData({ ...data, description: e.target.value })
                 }

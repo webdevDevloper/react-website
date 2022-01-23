@@ -28,7 +28,6 @@ const AdminPage = () => {
     title: "",
     amount: "",
     price: "",
-    description: "",
   });
   const endpoint = "http://localhost:3000/courses";
   //get Image

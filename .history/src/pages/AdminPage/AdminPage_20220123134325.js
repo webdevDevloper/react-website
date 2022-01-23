@@ -28,7 +28,6 @@ const AdminPage = () => {
     title: "",
     amount: "",
     price: "",
-    description: "",
   });
   const endpoint = "http://localhost:3000/courses";
   //get Image
@@ -99,12 +98,11 @@ const AdminPage = () => {
       title: data.title,
       amount: data.amount,
       price: data.price,
-      description: data.description,
     };
     addProduct(posts);
     fetchProductList();
 
-    setData({ image: "", title: "", amount: "", price: "", description: "" });
+    setData({ image: "", title: "", amount: "", price: "" });
   }
   return (
     <div>
