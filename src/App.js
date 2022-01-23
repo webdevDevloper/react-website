@@ -16,6 +16,7 @@ import { routes } from "./routes/routes";
 import "react-toastify/dist/ReactToastify.css";
 import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import HomePage from "./pages/HomePage/HomePage";
+import RecordOder from "pages/RecordOder/RecordOder";
 import { FooterContainer } from "containers/footer";
 function App() {
 	const user = false;
@@ -51,6 +52,7 @@ function App() {
 				/>
 				<Route path="/product/:id" element={<ProductDetail />} />
 				<Route path="/cart" element={<ShoppingCart />} />
+				<Route path="/history" element={<RecordOder />} />
 			</Routes>
 			<ToastContainer
 				position="bottom-right"

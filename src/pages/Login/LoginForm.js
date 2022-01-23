@@ -37,9 +37,7 @@ function LoginForm(props) {
 			<div className={styles.login__overlay}></div>
 			<form className={styles.login__form}>
 				<div className={styles.login__form__container}>
-					<h2 className={styles.login__form__container__heading}>
-						Login
-					</h2>
+					<h2 className={styles.login__form__container__heading}>Login</h2>
 					<h3 className={styles.login__form__container__title}>
 						Well Come Back
 					</h3>
@@ -47,9 +45,7 @@ function LoginForm(props) {
 						<input
 							type="text"
 							placeholder="Email"
-							onChange={(e) =>
-								setEmail({ ...email, email: e.target.value })
-							}
+							onChange={(e) => setEmail({ ...email, email: e.target.value })}
 							value={email.email}
 							autoFocus={true}
 						/>
@@ -72,11 +68,7 @@ function LoginForm(props) {
 						Sign In
 					</button>
 					<div className={styles.login__form__container__gorup}>
-						<div
-							className={
-								styles.login__form__container__gorup__checkbox
-							}
-						>
+						<div className={styles.login__form__container__gorup__checkbox}>
 							<input type="checkbox" />
 							<span>Remember Me</span>
 						</div>
@@ -89,11 +81,7 @@ function LoginForm(props) {
 					<button>Tiwiter</button>
 				</div>
 				<Link className="link" to="/resgister">
-					<button
-						className={
-							styles.login__form__container__resgister__btn
-						}
-					>
+					<button className={styles.login__form__container__resgister__btn}>
 						Resgister
 					</button>
 				</Link>
