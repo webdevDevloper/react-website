@@ -1,0 +1,37 @@
+@media only screen and (min-width: 1023px) {
+  .homepage-product:hover .homepage-product-item_content {
+    transform: translateY(-44px);
+  }
+}
+
+.homePage_button {
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  will-change: transform;
+}
+
+.homePage_button:hover {
+  background: darken(#c06c84, 10%);
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.2);
+  transform: translate3d(0, -2px, 0);
+}
+
+.homePage_button:active {
+  background: darken(#c06c84, 10%);
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.2);
+  transform: translate3d(0, -2px, 0);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  33% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
