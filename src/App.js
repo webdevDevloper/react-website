@@ -1,22 +1,17 @@
+import MainLayout from "layout/MainLayout";
+import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { initCart } from "redux/reducer/cartSlice";
-import Navbar from "./components/Navbar/Navbar";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import SinglePost from "./components/SinglePost/SinglePost";
-
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import HomePage from "./pages/HomePage/HomePage";
 import LoginForm from "./pages/Login/LoginForm";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Resgister from "./pages/Resgister/Resgister";
-import Setting from "./pages/Setting/Setting";
-import Write from "./pages/Write/Write";
-import { routes } from "./routes/routes";
-import "react-toastify/dist/ReactToastify.css";
-import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
-import HomePage from "./pages/HomePage/HomePage";
-import { FooterContainer } from "containers/footer";
+
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
@@ -27,51 +22,37 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<Navbar />
 			<Routes>
-				<Route path="/home" element={<HomePage />} />
-				<Route
-					path="/resgister"
-					element={user ? <HomePage /> : <Resgister />}
-				/>
-				<Route
-					path="/login"
-					element={user ? <HomePage /> : <LoginForm />}
-				/>
-				<Route
-					path="/write"
-					element={user ? <Write /> : <Resgister />}
-				/>
-				<Route
-					path="/setting"
-					element={user ? <Setting /> : <Resgister />}
-				/>
-				<Route
-					path="/login"
-					element={user ? <HomePage /> : <LoginForm />}
-				/>
-				<Route
-					path="/write"
-					element={user ? <Write /> : <Resgister />}
-				/>
-				<Route
-					path="/setting"
-					element={user ? <Setting /> : <Resgister />}
-				/>
-				<Route
-					path="/post/:postId"
-					element={user ? <SinglePost /> : <LoginForm />}
-				/>
-				<Route
-					path="/private"
-					element={
-						<PrivateRoute route={routes[0]}>
-							<div>This is private route</div>
-						</PrivateRoute>
-					}
-				/>
-				<Route path="/product/:id" element={<ProductDetail />} />
-				<Route path="/cart" element={<ShoppingCart />} />
+				<Route path="/" element={<MainLayout />}>
+					<Route index element={<HomePage />} />
+					<Route path="/home" element={<HomePage />} />
+					<Route path="/products/:id" element={<ProductDetail />} />
+					<Route
+						path="/cart"
+						element={
+							<PrivateRoute>
+								<ShoppingCart />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/resgister"
+						element={
+							<PrivateRoute>
+								<Resgister />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/login"
+						element={
+							<PrivateRoute>
+								<LoginForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route path="*" element={<div>Routes not found</div>} />
+				</Route>
 			</Routes>
 			<ToastContainer
 				position="bottom-right"
@@ -85,7 +66,6 @@ function App() {
 				pauseOnHover
 				transition={Slide}
 			/>
-			<FooterContainer />
 		</BrowserRouter>
 	);
 }

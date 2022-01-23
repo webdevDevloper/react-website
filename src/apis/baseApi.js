@@ -1,20 +1,22 @@
 import axios from "axios";
 import queryString from "query-string";
+import { baseURL } from "utils/constants";
+import { getLocalStorage } from "utils/localStorage";
 
 const getAccessToken = () => {
-	const token = window.localStorage.getItem("accessToken");
+	const token = getLocalStorage("token");
 	return token;
 };
 
-export const axiosInstance = axios.create({
-	baseURL: "http://api.doanky5.huyhoangdev.engineer/api",
-	// headers: {
-	// 	"Content-Type": "application/json",
-	// },
-	// paramsSerializer: (params) => queryString.stringify(params),
+const axiosClient = axios.create({
+	baseURL: baseURL,
+	headers: {
+		"Content-Type": "application/json",
+	},
+	paramsSerializer: (params) => queryString.stringify(params),
 });
 
-axiosInstance.interceptors.request.use(
+axiosClient.interceptors.request.use(
 	function (config) {
 		// Do something before request is sent
 		const accessToken = getAccessToken();
@@ -30,7 +32,7 @@ axiosInstance.interceptors.request.use(
 );
 
 // Add a response interceptor
-axiosInstance.interceptors.response.use(
+axiosClient.interceptors.response.use(
 	function (response) {
 		// Any status code that lie within the range of 2xx cause this function to trigger
 		// Do something with response data
@@ -42,3 +44,5 @@ axiosInstance.interceptors.response.use(
 		return Promise.reject(error);
 	}
 );
+
+export default axiosClient;
