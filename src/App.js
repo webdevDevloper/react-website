@@ -53,7 +53,7 @@ function App() {
 						}
 					/>
 					<Route
-						path="/admin"
+						path="/create-product"
 						element={
 							<PrivateRoute>
 								<AdminPage />
