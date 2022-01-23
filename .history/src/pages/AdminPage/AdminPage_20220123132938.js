@@ -40,7 +40,7 @@ const AdminPage = () => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
     setData({ ...data, image: file.preview });
-    setAvatar(file);
+    setAvatar(file)
   };
 
   //get fake Api
@@ -122,15 +122,7 @@ const AdminPage = () => {
                 required
                 onChange={handleRenderImage}
               />
-              {avatar && (
-                <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
-                  <img
-                    src={avatar.preview}
-                    alt=""
-                    className="object-contain h-full"
-                  />
-                </div>
-              )}
+              {avatar && (<img src={} alt=""/>)}
             </Col>
             <Col
               span={8}

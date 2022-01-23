@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Img1 from "../images/img1.jpg";
-import { axiosInstance } from "../../apis/baseApi";
-
 import "./HomePage.css";
 import {
   MinusOutlined,
@@ -32,14 +30,13 @@ const HomePage = (props) => {
 
   const getData = async (controller) => {
     try {
-      const res = await axiosInstance.get("/components/schemas/Item", {
+      const res = await axiosInstance.get("", {
         signal: controller.signal,
       });
       // console.log(res);
       setDatas(res.data);
     } catch (err) {}
   };
-  console.log(datas);
   const categoriesItem = [
     {
       name: "Arts & Photography",

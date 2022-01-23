@@ -15,18 +15,16 @@ import {
   SearchOutlined,
   PlusOutlined,
   EditOutlined,
-  CloseSquareOutlined,
 } from "@ant-design/icons";
 import { Button, Row, Col } from "antd";
 import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
-  const [avatar, setAvatar] = useState();
   const [data, setData] = useState({
     image: "",
     title: "",
-    amount: "",
+    author: "",
     price: "",
   });
   const endpoint = "http://localhost:3000/courses";
@@ -40,69 +38,67 @@ const AdminPage = () => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
     setData({ ...data, image: file.preview });
-    setAvatar(file);
   };
 
-  //get fake Api
-  useEffect(() => {
-    fetchProductList();
-  }, []);
-  const fetchProductList = async () => {
-    try {
-      const response = await productApi.getAll();
-      setDatas(response);
-    } catch (error) {
-      console.log("Failed to fetch product list: ", error);
-    }
-  };
-  //get API from server
+  //get Api
   // useEffect(() => {
-  //   const controller = new AbortController();
-
-  //   getData(controller);
-
-  //   return () => {
-  //     controller.abort();
-  //   };
+  //   fetchProductList();
   // }, []);
+  // const fetchProductList = async () => {
+  //   try {
+  //     const response = await productApi.getAll();
+  //     setDatas(response);
+  //   } catch (error) {
+  //     console.log("Failed to fetch product list: ", error);
+  //   }
+  // };
+  useEffect(() => {
+    const controller = new AbortController();
+
+    getData(controller);
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const getData = async (controller) => {
     try {
-      const res = await axiosInstance.get("", {
+      const res = await axiosInstance.get("/product/get-all-product", {
         signal: controller.signal,
       });
-      // console.log(res);
+      console.log(res);
       setDatas(res.data);
     } catch (err) {}
   };
   console.log(datas);
 
   console.log(data);
-  async function addProduct(post) {
-    try {
-      await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(post),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function addProduct(post) {
+  //   try {
+  //     await fetch(endpoint, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(post),
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   async function handleSubmit(e) {
     e.preventDefault();
-    let posts = {
+    let postData = {
       image: data.image,
       title: data.title,
-      amount: data.amount,
+      author: data.author,
       price: data.price,
     };
-    addProduct(posts);
-    fetchProductList();
+    // addProduct(postData);
+    // fetchProductList();
 
-    setData({ image: "", title: "", amount: "", price: "" });
+    setData({ image: "", title: "", author: "", price: "" });
   }
   return (
     <div>
@@ -112,7 +108,7 @@ const AdminPage = () => {
         </div>
         <form className="form-post" autocomplete="off" method="post">
           <Row gutter={(16, 16)} className="mb-6">
-            <Col span={12} className="p-2 ">
+            <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="file"
@@ -122,20 +118,8 @@ const AdminPage = () => {
                 required
                 onChange={handleRenderImage}
               />
-              {avatar && (
-                <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
-                  <img
-                    src={avatar.preview}
-                    alt=""
-                    className="object-contain h-full"
-                  />
-                </div>
-              )}
             </Col>
-            <Col
-              span={8}
-              className="p-2 iphone:!max-w-[100%] iphone:!flex-ant100"
-            >
+            <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
@@ -146,24 +130,18 @@ const AdminPage = () => {
                 onChange={(e) => setData({ ...data, title: e.target.value })}
               />
             </Col>
-            <Col
-              span={8}
-              className="p-2 iphone:!max-w-[100%] iphone:!flex-ant100"
-            >
+            <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
-                name="amount"
-                placeholder="Enter your amount"
+                name="author"
+                placeholder="Enter your author"
                 required
-                value={data.amount}
-                onChange={(e) => setData({ ...data, amount: e.target.value })}
+                value={data.author}
+                onChange={(e) => setData({ ...data, author: e.target.value })}
               />
             </Col>
-            <Col
-              span={8}
-              className="p-2 iphone:!max-w-[100%] iphone:!flex-ant100"
-            >
+            <Col span={8} className="p-2 ">
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
@@ -177,10 +155,7 @@ const AdminPage = () => {
             </Col>
             <Col span={8} className="p-2 ">
               <div className="flex items-start gap-1 ">
-                <label
-                  for="best-seller"
-                  className="inline-block leading-[1] cursor-pointer"
-                >
+                <label for="best-seller" className="leading-[1] cursor-pointer">
                   Best Seller?
                 </label>
                 <input type="checkbox" name="bestSeller" id="best-seller" />
@@ -200,11 +175,11 @@ const AdminPage = () => {
         <input
           type="text"
           className="
-                filter py-[10px] px-[15px] border border-solid rounded-md lg:max-w-[25%] w-full outline-none my-5 iphone:max-w-[25%] "
+                filter py-[10px] px-[15px] border border-solid rounded-md max-w-[25%] w-full outline-none my-5"
           placeholder="Search your product"
         />
         <div>
-          <Row className="relative">
+          <Row>
             {datas.map((item) => (
               <Col
                 key={item.id}
@@ -212,7 +187,7 @@ const AdminPage = () => {
                 className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"
               >
-                <div className="homepage-product relative h-full max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border rounded-md overflow-hidden">
+                <div className="homepage-product z-50 relative h-full max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border">
                   <img
                     src={item?.image}
                     alt=""
@@ -223,18 +198,15 @@ const AdminPage = () => {
                       {item.title}
                     </h2>
                     <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                      {item.amount}
+                      {item.author}
                     </p>
                     <p className=" mb-1 text-[18px] font-semibold">
                       {item.price}
                     </p>
                   </div>
-                  <div className="cursor-pointer  iphone:m-auto bottom-[73px] max-w-[157px] w-full text-white">
-                    <EditOutlined className="p-3 rounded ease-in-out duration-100 bg-[#f75454] hover:bg-[#f31616] text-2xl  w-full"></EditOutlined>
+                  <div className="cursor-pointer  iphone:m-auto  lg:-z-50  bottom-[73px] max-w-[157px] w-full ">
+                    <ShoppingOutlined className="p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl  w-full"></ShoppingOutlined>
                   </div>
-                </div>
-                <div className="close-button cursor-pointer absolute right-0 top-0 p-2 text-white bg-primary flex justify-center items-center rounded-[10px] hover:bg-[#f31616]">
-                  <CloseSquareOutlined className="" />
                 </div>
               </Col>
             ))}

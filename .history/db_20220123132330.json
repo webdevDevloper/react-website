@@ -17,7 +17,7 @@
       "rating": 5,
       "price": 99,
       "bestSeller": false,
-      "amount": 99,
+      "buyAmount": 99,
       "id": 2
     },
     {

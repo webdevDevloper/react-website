@@ -123,7 +123,7 @@ const AdminPage = () => {
                 onChange={handleRenderImage}
               />
               {avatar && (
-                <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
+                <div className="h-[200px] text-left">
                   <img
                     src={avatar.preview}
                     alt=""

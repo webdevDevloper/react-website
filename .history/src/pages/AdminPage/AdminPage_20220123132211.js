@@ -22,11 +22,10 @@ import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
-  const [avatar, setAvatar] = useState();
   const [data, setData] = useState({
     image: "",
     title: "",
-    amount: "",
+    author: "",
     price: "",
   });
   const endpoint = "http://localhost:3000/courses";
@@ -40,7 +39,6 @@ const AdminPage = () => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
     setData({ ...data, image: file.preview });
-    setAvatar(file);
   };
 
   //get fake Api
@@ -96,13 +94,13 @@ const AdminPage = () => {
     let posts = {
       image: data.image,
       title: data.title,
-      amount: data.amount,
+      author: data.author,
       price: data.price,
     };
     addProduct(posts);
     fetchProductList();
 
-    setData({ image: "", title: "", amount: "", price: "" });
+    setData({ image: "", title: "", author: "", price: "" });
   }
   return (
     <div>
@@ -122,15 +120,6 @@ const AdminPage = () => {
                 required
                 onChange={handleRenderImage}
               />
-              {avatar && (
-                <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
-                  <img
-                    src={avatar.preview}
-                    alt=""
-                    className="object-contain h-full"
-                  />
-                </div>
-              )}
             </Col>
             <Col
               span={8}
@@ -153,11 +142,11 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
-                name="amount"
-                placeholder="Enter your amount"
+                name="author"
+                placeholder="Enter your author"
                 required
-                value={data.amount}
-                onChange={(e) => setData({ ...data, amount: e.target.value })}
+                value={data.author}
+                onChange={(e) => setData({ ...data, author: e.target.value })}
               />
             </Col>
             <Col
@@ -223,7 +212,7 @@ const AdminPage = () => {
                       {item.title}
                     </h2>
                     <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                      {item.amount}
+                      {item.author}
                     </p>
                     <p className=" mb-1 text-[18px] font-semibold">
                       {item.price}

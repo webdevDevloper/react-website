@@ -32,7 +32,7 @@ const HomePage = (props) => {
 
   const getData = async (controller) => {
     try {
-      const res = await axiosInstance.get("/components/schemas/Item", {
+      const res = await axiosInstance.get("#/components/schemas/Item", {
         signal: controller.signal,
       });
       // console.log(res);

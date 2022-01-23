@@ -7,7 +7,7 @@ const getAccessToken = () => {
 };
 
 export const axiosInstance = axios.create({
-  baseURL: "http://www.apache.org/licenses/LICENSE-2.0.html",
+  baseURL: "http://34.225.250.142:3000/api/v1/#",
   // headers: {
   // 	"Content-Type": "application/json",
   // },

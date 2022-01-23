@@ -122,15 +122,7 @@ const AdminPage = () => {
                 required
                 onChange={handleRenderImage}
               />
-              {avatar && (
-                <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
-                  <img
-                    src={avatar.preview}
-                    alt=""
-                    className="object-contain h-full"
-                  />
-                </div>
-              )}
+              {avatar && <img src={avatar.preview} alt="" />}
             </Col>
             <Col
               span={8}

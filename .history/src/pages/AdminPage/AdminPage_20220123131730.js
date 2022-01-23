@@ -22,11 +22,10 @@ import { data } from "autoprefixer";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
-  const [avatar, setAvatar] = useState();
   const [data, setData] = useState({
     image: "",
     title: "",
-    amount: "",
+    author: "",
     price: "",
   });
   const endpoint = "http://localhost:3000/courses";
@@ -40,7 +39,6 @@ const AdminPage = () => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
     setData({ ...data, image: file.preview });
-    setAvatar(file);
   };
 
   //get fake Api
@@ -96,13 +94,13 @@ const AdminPage = () => {
     let posts = {
       image: data.image,
       title: data.title,
-      amount: data.amount,
+      author: data.author,
       price: data.price,
     };
     addProduct(posts);
     fetchProductList();
 
-    setData({ image: "", title: "", amount: "", price: "" });
+    setData({ image: "", title: "", author: "", price: "" });
   }
   return (
     <div>
@@ -122,15 +120,6 @@ const AdminPage = () => {
                 required
                 onChange={handleRenderImage}
               />
-              {avatar && (
-                <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
-                  <img
-                    src={avatar.preview}
-                    alt=""
-                    className="object-contain h-full"
-                  />
-                </div>
-              )}
             </Col>
             <Col
               span={8}
@@ -153,11 +142,11 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
-                name="amount"
-                placeholder="Enter your amount"
+                name="author"
+                placeholder="Enter your author"
                 required
-                value={data.amount}
-                onChange={(e) => setData({ ...data, amount: e.target.value })}
+                value={data.author}
+                onChange={(e) => setData({ ...data, author: e.target.value })}
               />
             </Col>
             <Col
@@ -212,7 +201,7 @@ const AdminPage = () => {
                 className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"
               >
-                <div className="homepage-product relative h-full max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border rounded-md overflow-hidden">
+                <div className="homepage-product z-50 relative h-full max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border">
                   <img
                     src={item?.image}
                     alt=""
@@ -223,17 +212,17 @@ const AdminPage = () => {
                       {item.title}
                     </h2>
                     <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                      {item.amount}
+                      {item.author}
                     </p>
                     <p className=" mb-1 text-[18px] font-semibold">
                       {item.price}
                     </p>
                   </div>
-                  <div className="cursor-pointer  iphone:m-auto bottom-[73px] max-w-[157px] w-full text-white">
-                    <EditOutlined className="p-3 rounded ease-in-out duration-100 bg-[#f75454] hover:bg-[#f31616] text-2xl  w-full"></EditOutlined>
+                  <div className="cursor-pointer  iphone:m-auto  lg:-z-50  bottom-[73px] max-w-[157px] w-full ">
+                    <EditOutlined className="p-3 rounded ease-in-out duration-100 bg-[#f75454] hover:bg-[#f31616] hover:text-white text-white text-2xl  w-full"></EditOutlined>
                   </div>
                 </div>
-                <div className="close-button cursor-pointer absolute right-0 top-0 p-2 text-white bg-primary flex justify-center items-center rounded-[10px] hover:bg-[#f31616]">
+                <div className="absolute right-0 top-0 p-2 text-white bg-primary flex justify-center items-center rounded-[10px]">
                   <CloseSquareOutlined className="" />
                 </div>
               </Col>

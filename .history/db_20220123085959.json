@@ -7,7 +7,7 @@
       "rating": 5,
       "price": 99,
       "bestSeller": true,
-      "amount": 98,
+      "buyAmount": 98,
       "id": 1
     },
     {
@@ -17,21 +17,14 @@
       "rating": 5,
       "price": 99,
       "bestSeller": false,
-      "amount": 99,
+      "buyAmount": 99,
       "id": 2
     },
     {
-      "image": "blob:http://localhost:3002/bcfe67bf-5a36-44a3-85ed-bcdc2ebb9a3d",
-      "title": "123123",
-      "author": "123123",
-      "price": "11",
-      "id": 3
-    },
-    {
-      "image": "blob:http://localhost:3001/bb76be8d-2dc1-4766-8a2d-fa756751c2b8",
-      "title": "qwee",
-      "author": "qweqweq",
-      "price": "12",
+      "image": "blob:http://localhost:3001/545f696a-b850-41b9-a2b9-03ae513b5611",
+      "title": "qwe",
+      "author": "qwe",
+      "price": "qwe",
       "id": 4
     }
   ]
