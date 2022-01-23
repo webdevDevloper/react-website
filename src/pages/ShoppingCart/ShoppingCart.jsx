@@ -32,7 +32,7 @@ const ShoppingCart = () => {
 	return (
 		<div className="flex flex-col mx-auto items-center w-10/12 md:w-11/12 text-gray-800 md:flex-row">
 			<div className="w-full md:w-9/12 md:mr-4">
-				<div className="text-3xl mb-4 font-semibold text-center">
+				<div className="text-2xl mb-4 font-semibold text-center">
 					Your cart
 				</div>
 				<div className="w-full">
@@ -42,7 +42,7 @@ const ShoppingCart = () => {
 			</div>
 
 			<div className="w-full md:w-1/4">
-				<div className="text-3xl mb-4 font-semibold text-center">
+				<div className="text-2xl mb-4 font-semibold text-center">
 					Purchase Information
 				</div>
 				<div className="w-full border  text-xl mb-4">
@@ -58,12 +58,12 @@ const ShoppingCart = () => {
 					<hr />
 				</div>
 
-				<PrimaryButton className="mb-4 shadow-md md:text-xl">
+				<PrimaryButton className="mb-4 shadow-md md:text-lg">
 					Proceed to checkout
 				</PrimaryButton>
 				<SecondButton
 					onClick={handleKeepShopping}
-					className="mb-4 shadow-md md:text-xl"
+					className="mb-4 shadow-md md:text-lg"
 				>
 					Keep shopping
 				</SecondButton>

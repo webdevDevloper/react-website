@@ -5,13 +5,20 @@ import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 import { useDispatch } from "react-redux";
 
-function ItemCard({ item }) {
+function ItemCard({ item, deleteItem, selectItem }) {
 	const [quantity, setQuantity] = useState(1);
 
-	const dispatch = useDispatch();
-
 	const handleDeleteItem = () => {
-		// dispatch
+		if (deleteItem) {
+			deleteItem(item);
+		}
+	};
+
+	const hanldeSelectItem = (e) => {
+		console.log(e.target.value);
+		// if (selectItem) {
+		//     selectItem(item);
+		// }
 	};
 
 	useEffect(() => {
@@ -28,9 +35,15 @@ function ItemCard({ item }) {
 			<div className="mb-6 border md:hidden">
 				<div
 					onClick={handleDeleteItem}
-					className="flex justify-between px-4 py-2 cursor-pointer"
+					className="flex justify-between px-4 py-2 "
 				>
-					<ImCross style={{ color: "#dc2626" }} />
+					<input
+						type="checkbox"
+						name=""
+						id=""
+						onChange={hanldeSelectItem}
+					/>
+					<ImCross style={{ color: "#dc2626", cursor: "pointer" }} />
 				</div>
 				<hr />
 				<div className="flex justify-between px-4 py-2">
@@ -60,9 +73,9 @@ function ItemCard({ item }) {
 			</div>
 
 			{/* Middle screen display */}
-			<div className="hidden md:grid grid-cols-8 mb-4 text-xl items-center gap-4 px-4">
-				<div className="cursor-pointer">
-					<ImCross style={{ color: "#dc2626" }} />
+			<div className="hidden md:grid grid-cols-10 mb-4 text-xl items-center gap-4 px-2">
+				<div className="justify-self-center">
+					<input type="checkbox" name="" id="" width={"30px"} />
 				</div>
 				<img
 					src={testImage}
@@ -73,11 +86,14 @@ function ItemCard({ item }) {
 					{" "}
 					Ten san pham asd asd s asd asd asd asd
 				</Link>
-				<div className="justify-self-center">1000</div>
-				<div className="justify-self-center">
+				<div className="justify-self-center">100000</div>
+				<div className="justify-self-center col-span-2">
 					<InputNumber number={quantity} setNumber={setQuantity} />
 				</div>
 				<div className="justify-self-center">1000</div>
+				<div className="cursor-pointer justify-self-center">
+					<ImCross style={{ color: "#dc2626" }} />
+				</div>
 			</div>
 			<hr className="hidden md:block mb-4" />
 		</>
