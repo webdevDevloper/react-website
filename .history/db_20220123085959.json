@@ -1,0 +1,31 @@
+{
+  "courses": [
+    {
+      "image": "https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80",
+      "title": "flower",
+      "author": " Sergey Shmidt",
+      "rating": 5,
+      "price": 99,
+      "bestSeller": true,
+      "buyAmount": 98,
+      "id": 1
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1642785555474-eff67db1cdb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80",
+      "title": "Selective focus photography",
+      "author": "demo",
+      "rating": 5,
+      "price": 99,
+      "bestSeller": false,
+      "buyAmount": 99,
+      "id": 2
+    },
+    {
+      "image": "blob:http://localhost:3001/545f696a-b850-41b9-a2b9-03ae513b5611",
+      "title": "qwe",
+      "author": "qwe",
+      "price": "qwe",
+      "id": 4
+    }
+  ]
+}

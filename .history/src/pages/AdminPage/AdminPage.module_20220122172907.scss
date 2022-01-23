@@ -1,0 +1,19 @@
+.form_submit {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+  }
+}

@@ -1,4 +1,4 @@
-import axiosClient from "apis/baseApi";
+import axiosClient from "apis/axiosClient";
 
 const itemApi = {
 	getAllItems: (params) => {

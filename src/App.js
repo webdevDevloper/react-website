@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginForm from "./pages/Login/LoginForm";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Resgister from "./pages/Resgister/Resgister";
+import AdminPage from "pages/AdminPage/AdminPage";
 
 function App() {
 	const user = false;
@@ -48,6 +49,14 @@ function App() {
 						element={
 							<PrivateRoute>
 								<LoginForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/admin"
+						element={
+							<PrivateRoute>
+								<AdminPage />
 							</PrivateRoute>
 						}
 					/>

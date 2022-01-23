@@ -1,0 +1,8 @@
+.form_submit {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+}
