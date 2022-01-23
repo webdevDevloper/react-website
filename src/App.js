@@ -34,9 +34,30 @@ function App() {
 					path="/resgister"
 					element={user ? <HomePage /> : <Resgister />}
 				/>
-				<Route path="/login" element={user ? <HomePage /> : <LoginForm />} />
-				<Route path="/write" element={user ? <Write /> : <Resgister />} />
-				<Route path="/setting" element={user ? <Setting /> : <Resgister />} />
+				<Route
+					path="/login"
+					element={user ? <HomePage /> : <LoginForm />}
+				/>
+				<Route
+					path="/write"
+					element={user ? <Write /> : <Resgister />}
+				/>
+				<Route
+					path="/setting"
+					element={user ? <Setting /> : <Resgister />}
+				/>
+				<Route
+					path="/login"
+					element={user ? <HomePage /> : <LoginForm />}
+				/>
+				<Route
+					path="/write"
+					element={user ? <Write /> : <Resgister />}
+				/>
+				<Route
+					path="/setting"
+					element={user ? <Setting /> : <Resgister />}
+				/>
 				<Route
 					path="/post/:postId"
 					element={user ? <SinglePost /> : <LoginForm />}
