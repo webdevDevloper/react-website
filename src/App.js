@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { initCart } from "redux/reducer/cartSlice";
+import { addToCart, fetchUserById, initCart } from "redux/reducer/cartSlice";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginForm from "./pages/Login/LoginForm";
@@ -18,7 +18,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(initCart());
+		// dispatch(addToCart());
 	}, []);
 
 	return (

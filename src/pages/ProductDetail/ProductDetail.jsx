@@ -6,11 +6,13 @@ import ProductSmallCard from "./ProductSmallCard";
 import Rating from "components/Rating/Rating";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addItem } from "redux/reducer/cartSlice";
+import { addToCart } from "redux/reducer/cartSlice";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import InputNumber from "components/InputNumber/InputNumber";
 import itemApi from "apis/items/itemApi";
+import cartApi from "apis/cart/cartApi";
+import { getLocalStorage } from "utils/localStorage";
 
 const testData = {
 	id: 0,
@@ -42,16 +44,18 @@ function ProductDetail(props) {
 		getDetail();
 	}, [id]);
 
-	const handleAddItemToCart = () => {
-		const product = {
-			...productDetail,
-			quantity: quantity,
-		};
-		dispatch(addItem(product));
+	const handleAddItemToCart = async () => {
+		if (productDetail) {
+			const product = {
+				productId: productDetail._id,
+				quantity: quantity,
+			};
+			dispatch(addToCart(product));
+		}
 
-		toast.success("Them vao gio hang thanh cong!", {
-			position: toast.POSITION.BOTTOM_RIGHT,
-		});
+		// toast.success("Them vao gio hang thanh cong!", {
+		// 	position: toast.POSITION.BOTTOM_RIGHT,
+		// });
 	};
 
 	return (
