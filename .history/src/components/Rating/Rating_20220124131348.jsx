@@ -61,7 +61,7 @@ function Rating(props) {
             focusable="false"
             data-prefix="far"
             data-icon="star"
-            class="w-4 text-yellow-500 mr-1"
+            class="w-4 text-white mr-1"
             role="img"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 576 512"

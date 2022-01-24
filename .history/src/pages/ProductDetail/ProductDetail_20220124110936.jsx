@@ -44,7 +44,7 @@ function ProductDetail(props) {
     getDetail();
   }, [id]);
 
-  const handleAddItemToCart = async () => {
+  const handleAddItemToCart = () => {
     if (productDetail) {
       const product = {
         productId: productDetail._id,
