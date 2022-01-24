@@ -9,8 +9,8 @@ const itemApi = {
     const url = `items/${id}`;
     return axiosClient.get(url, params);
   },
-  getItemcatalogue: (params) => {
-    const url = `items/get-category`;
+  getItemcatalogue: (category, params) => {
+    const url = `items/${category}`;
     return axiosClient.get(url, params);
   },
   postItemAdmin: (params) => {

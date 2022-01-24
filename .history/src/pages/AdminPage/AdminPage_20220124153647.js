@@ -4,8 +4,6 @@ import Styles from "./AdminPage.module.scss";
 import "../AdminPage/AdminPage.css";
 import productApi from "apis/productApi";
 // import { axiosInstance } from "../../apis/baseApi";
-// import axiosClient from "apis/axiosClient";
-import itemApi from "apis/items/itemApi";
 import axiosClient from "apis/axiosClient";
 
 import {
@@ -22,6 +20,8 @@ import {
 } from "@ant-design/icons";
 import { Button, Row, Col } from "antd";
 import { data } from "autoprefixer";
+import itemApi from "apis/items/itemApi";
+import axiosClient from "apis/axiosClient";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
@@ -34,18 +34,16 @@ const AdminPage = () => {
     category: "",
   });
   //get thumbnail
-  // useEffect(() => {
-  //   return () => {
-  //     data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
-  //   };
-  // }, [data.thumbnail]);
-
+  useEffect(() => {
+    return () => {
+      data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
+    };
+  }, [data.thumbnail]);
   const handleRenderthumbnail = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setData({ ...data, thumbnail: file.name });
+    setData({ ...data, thumbnail: file.preview });
     setAvatar(file);
-    console.log(file);
   };
 
   //get fake Api
@@ -60,7 +58,7 @@ const AdminPage = () => {
       console.log(err);
     }
   };
-  console.log(data);
+  // console.log(data);
   async function handleSubmit(e) {
     e.preventDefault();
     let posts = {
@@ -70,8 +68,6 @@ const AdminPage = () => {
       price: data.price,
       category: data.category,
     };
-    // const formData = new FormData();
-    // formData.append("file", this.state.pictureAsFile);
     addProductAdmin(posts);
     // fetchProductList();
 

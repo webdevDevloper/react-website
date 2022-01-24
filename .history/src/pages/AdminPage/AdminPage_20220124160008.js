@@ -42,9 +42,9 @@ const AdminPage = () => {
 
   const handleRenderthumbnail = (e) => {
     const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setData({ ...data, thumbnail: file.name });
-    setAvatar(file);
+    // file.preview = URL.createObjectURL(file);
+    // setData({ ...data, thumbnail: file.name });
+    // setAvatar(file);
     console.log(file);
   };
 
@@ -70,8 +70,7 @@ const AdminPage = () => {
       price: data.price,
       category: data.category,
     };
-    // const formData = new FormData();
-    // formData.append("file", this.state.pictureAsFile);
+
     addProductAdmin(posts);
     // fetchProductList();
 

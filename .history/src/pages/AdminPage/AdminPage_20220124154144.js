@@ -34,18 +34,16 @@ const AdminPage = () => {
     category: "",
   });
   //get thumbnail
-  // useEffect(() => {
-  //   return () => {
-  //     data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
-  //   };
-  // }, [data.thumbnail]);
-
+  useEffect(() => {
+    return () => {
+      data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
+    };
+  }, [data.thumbnail]);
   const handleRenderthumbnail = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setData({ ...data, thumbnail: file.name });
+    setData({ ...data, thumbnail: file.preview });
     setAvatar(file);
-    console.log(file);
   };
 
   //get fake Api
@@ -70,8 +68,6 @@ const AdminPage = () => {
       price: data.price,
       category: data.category,
     };
-    // const formData = new FormData();
-    // formData.append("file", this.state.pictureAsFile);
     addProductAdmin(posts);
     // fetchProductList();
 
