@@ -1,18 +1,15 @@
 import react, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { menuItem } from "./menuItem";
+import { useSelector } from "react-redux";
 import styles from "./Navbar.module.scss";
 import "../../reset.css";
-
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducer/userSlice";
 function Navbar() {
 	const navigate = useNavigate();
-	// const user = "";
-	let user = {
-		avatar:
-			"https://gudlogo.com/wp-content/uploads/2019/05/logo-con-cho-soi-14.png",
-		name: "loc pham",
-		role: "admin",
-	};
+	let user = useSelector((state) => state.user.value);
+	const dispatch = useDispatch();
 	const [click, setClick] = useState(false);
 
 	const handleClick = () => {
@@ -23,7 +20,10 @@ function Navbar() {
 		setClick(false);
 	};
 	const handleLogOut = () => {
+		console.log("run.....");
+		user = "";
 		window.localStorage.removeItem("accessToken");
+		dispatch(setUser(user));
 		navigate("/login");
 	};
 
@@ -62,7 +62,7 @@ function Navbar() {
 				<div className={styles.nav__container__user}>
 					{user ? (
 						<>
-							<img src={user.avatar} alt="" />
+							<img src="https://cf.shopee.vn/file/c5c6e067395edb3b091f22583e68c013" />
 							<span>{user.name}</span>
 							<i className="fas fa-caret-down"></i>
 							<ul className={styles.nav__container__user__option}>
@@ -70,7 +70,7 @@ function Navbar() {
 									<Link to="/history">My Order</Link>
 								</li>
 
-								{user.role === "admin" ? (
+								{user.data.role && user.data.role === "admin" ? (
 									<li>
 										<Link to="/create-product">Add Products</Link>
 									</li>

@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import cartApi from "apis/cart/cartApi";
-import itemApi from "apis/items/itemApi";
-import {
-	getLocalStorage,
-	removeLocalStorage,
-	setLocalStorage,
-} from "utils/localStorage";
-
+import { toast } from "react-toastify";
 const initialState = {
 	cartItems: [],
 	cartItemsQuantity: 0,
@@ -18,8 +12,7 @@ export const getCart = createAsyncThunk(
 	async (item, thunkAPI) => {
 		try {
 			const response = await cartApi.getCart({});
-			console.log("all cart", response.data);
-			thunkAPI.dispatch(getTotal());
+			// thunkAPI.dispatch(getTotal());
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -33,8 +26,14 @@ export const addToCart = createAsyncThunk(
 		try {
 			const response = await cartApi.addToCart(item);
 			thunkAPI.dispatch(getCart());
+			toast.success("Them vao gio hang thanh cong!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			return response.data;
 		} catch (error) {
+			toast.warn("Vui long dang nhap!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			return thunkAPI.rejectWithValue(error.response.data);
 		}
 	}
@@ -45,6 +44,40 @@ export const getTotal = createAsyncThunk(
 	async (item, thunkAPI) => {
 		try {
 			const response = await cartApi.getTotal({});
+
+			return response.data;
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const purchaseCart = createAsyncThunk(
+	"cart/purchase",
+	async (item, thunkAPI) => {
+		try {
+			const response = await cartApi.purchase(item);
+			thunkAPI.dispatch(getCart());
+			toast.success("Thanh toan thanh cong!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
+			return response.data;
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const updateCart = createAsyncThunk(
+	"cart/update",
+	async (item, thunkAPI) => {
+		try {
+			const response = await cartApi.updateCart(item);
+			thunkAPI.dispatch(getCart());
+			// toast.success("Update thanh cong!", {
+			// 	position: toast.POSITION.BOTTOM_RIGHT,
+			// });
+			// console.log("updated ne");
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -66,12 +99,12 @@ export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		setItemQuantity: (state, action) => {
-			state.cartItemsQuantity = action.payload;
-		},
-		cartItemsTotal: (state, action) => {
-			state.cartItemsTotal = action.payload;
-		},
+		// setItemQuantity: (state, action) => {
+		// 	state.cartItemsQuantity = action.payload;
+		// },
+		// cartItemsTotal: (state, action) => {
+		// 	state.cartItemsTotal = action.payload;
+		// },
 	},
 	extraReducers: (builder) => {
 		builder.addCase(addToCart.fulfilled, (state, action) => {
@@ -81,19 +114,21 @@ export const cartSlice = createSlice({
 		});
 		builder.addCase(getCart.fulfilled, (state, action) => {
 			// Add user to the state array
-			state.cartItems.push(action.payload);
+			state.cartItems = [...action.payload];
 			const quantity = calcQuantity(action.payload);
 			// console.log(quantity);
 			state.cartItemsQuantity = quantity;
 		});
 		builder.addCase(getTotal.fulfilled, (state, action) => {
-			// Add user to the state array
-			// console.log(action.payload);
-			state.cartItemsTotal.push(action.payload);
+			console.log(action.payload);
+			state.cartItemsTotal = action.payload;
+		});
+		builder.addCase(purchaseCart.fulfilled, (state, action) => {
+			console.log("purchase oke");
 		});
 	},
 });
 // Reducers and actions
-export const { setItemQuantity, cartItemsTotal } = cartSlice.actions;
+export const { setItemQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;

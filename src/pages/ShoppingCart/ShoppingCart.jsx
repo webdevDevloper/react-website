@@ -1,21 +1,87 @@
 import PrimaryButton, { SecondButton } from "components/StyledButton/Button";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { purchaseCart, updateCart } from "redux/reducer/cartSlice";
 import ItemCard from "./ItemsCard";
 
 const ShoppingCart = (props) => {
 	let navigate = useNavigate();
 
 	const [listItems, setListItems] = useState([]);
+
 	const shoppingCart = useSelector((state) => state.shoppingCart);
+	const dispatch = useDispatch();
+
+	const [selectedListItems, setSelectedListItems] = useState([]);
+
+	const [totalProducts, setTotalProducts] = useState(0);
+	const [totalPrice, setTotalPrice] = useState(0);
 
 	const handleKeepShopping = () => {
 		navigate("/");
 	};
+
+	const handleCheckout = () => {
+		if (selectedListItems.length > 0) {
+			const dataToServer = selectedListItems.map((item) => {
+				// const newItem = { ...item };
+				delete item.price;
+				return item;
+			});
+			const dataWithOuterObject = {
+				product: [...dataToServer],
+			};
+			console.log(dataWithOuterObject);
+			dispatch(purchaseCart(dataWithOuterObject));
+			setTotalProducts(0);
+			setTotalPrice(0);
+		}
+	};
+
+	const handleDeleteItem = (item) => {
+		console.log(item);
+		dispatch(updateCart(item));
+		handleSelectItem(item, false);
+	};
+
+	const handleSelectItem = (selectedItem, isAdding) => {
+		let newSelectedItems = [...selectedListItems];
+		if (isAdding) {
+			const index = selectedListItems.findIndex(
+				(item) => item.productId === selectedItem.productId
+			);
+			if (index >= 0) {
+				newSelectedItems[index] = selectedItem;
+			} else {
+				newSelectedItems.push(selectedItem);
+			}
+		} else {
+			newSelectedItems = selectedListItems.filter(
+				(item) => item.productId !== selectedItem.productId
+			);
+		}
+
+		setSelectedListItems(newSelectedItems);
+		updateTotalAndQuantity(newSelectedItems);
+		// console.log("select item", newSelectedItems);
+	};
+
+	const updateTotalAndQuantity = (listItems) => {
+		// console.log(listItems);
+		setTotalProducts(listItems?.length);
+		const total = listItems.reduce(
+			(accumulator, currentValue) =>
+				accumulator + currentValue.price * currentValue.quantity,
+			0
+		);
+		setTotalPrice(total);
+	};
+
 	useEffect(() => {
 		if (shoppingCart) {
-			// console.log(shoppingCart);
+			// console.log("list cart", shoppingCart?.cartItems);
 			setListItems(shoppingCart?.cartItems);
 		}
 	}, [shoppingCart]);
@@ -23,7 +89,7 @@ const ShoppingCart = (props) => {
 	return (
 		//----------------------------
 		//
-		<div className="flex flex-col mx-auto items-center w-10/12 md:w-11/12 text-gray-800 md:flex-row">
+		<div className="flex flex-col mx-auto w-10/12 md:w-11/12 text-gray-800 md:flex-row">
 			<div className="w-full md:w-9/12 md:mr-4">
 				<div className="text-2xl mb-4 font-semibold text-center">
 					Your cart
@@ -32,8 +98,16 @@ const ShoppingCart = (props) => {
 					{listItems &&
 						listItems.length > 0 &&
 						listItems.map((item, index) => (
-							<ItemCard key={index} item={item} />
+							<ItemCard
+								key={index}
+								item={item}
+								deleteItem={handleDeleteItem}
+								selectItem={handleSelectItem}
+							/>
 						))}
+					{(!listItems || listItems.length <= 0) && (
+						<div>Your cart is empty!</div>
+					)}
 				</div>
 			</div>
 
@@ -43,18 +117,21 @@ const ShoppingCart = (props) => {
 				</div>
 				<div className="w-full border  text-xl mb-4">
 					<div className="flex justify-between px-4 py-2">
-						<div className="font-semibold">Total Quantity</div>
-						<div>2</div>
+						<div className="font-semibold">Total products</div>
+						<div>{totalProducts}</div>
 					</div>
 					<hr />
 					<div className="flex justify-between px-4 py-2">
-						<div className="font-semibold">Total</div>
-						<div>$10</div>
+						<div className="font-semibold">Total Price</div>
+						<div>{totalPrice}</div>
 					</div>
 					<hr />
 				</div>
 
-				<PrimaryButton className="mb-4 shadow-md md:text-lg">
+				<PrimaryButton
+					onClick={handleCheckout}
+					className="mb-4 shadow-md md:text-lg"
+				>
 					Proceed to checkout
 				</PrimaryButton>
 				<SecondButton

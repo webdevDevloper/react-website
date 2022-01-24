@@ -24,7 +24,7 @@ import User from "./pages/User/User";
 import itemApi from "apis/items/itemApi";
 
 function App() {
-	const user = false;
+	const user = true;
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -59,6 +59,14 @@ function App() {
 						element={
 							<PrivateRoute>
 								<LoginForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/user"
+						element={
+							<PrivateRoute>
+								<User />
 							</PrivateRoute>
 						}
 					/>

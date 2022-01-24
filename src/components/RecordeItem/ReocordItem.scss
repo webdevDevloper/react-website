@@ -2,7 +2,7 @@
 .record__item {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px 70px;
   &__container {
     display: flex;
     margin-bottom: 4px;
@@ -65,7 +65,8 @@
       padding: 4px;
       border-radius: inherit;
       & > img {
-        width: 100%;
+        width: 80px;
+        height: 80px;
         object-fit: cover;
       }
     }
@@ -102,5 +103,8 @@
       color: white;
       text-align: righ;
     }
+  }
+  @include mobile {
+    padding: 10px;
   }
 }

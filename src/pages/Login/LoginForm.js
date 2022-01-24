@@ -3,23 +3,29 @@ import React from "react";
 import styles from "./LoginForm.module.scss";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axiosClient from "../../apis/axiosClient";
-
+import { setUser } from "../../redux/reducer/userSlice";
 function LoginForm(props) {
+	// const user = userSelector((state) => state.user.value);
+
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [data, setData] = useState({ email: "", password: "" });
 	const login = async (e) => {
 		try {
 			e.preventDefault();
 			const res = await axiosClient.post("auth/login?", data);
 			console.log(res);
-			window.localStorage.setItem("accessToken", res.token);
+			dispatch(setUser(res));
+			window.localStorage.setItem("token", res.token);
 			navigate("/");
 		} catch (err) {
 			console.log(err);
 		}
 		setData({ email: "", password: "" });
 	};
+
 	return (
 		<div className={styles.login}>
 			<div className={styles.login__overlay}></div>
