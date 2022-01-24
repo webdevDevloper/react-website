@@ -15,8 +15,8 @@ const ShoppingCart = (props) => {
 	};
 	useEffect(() => {
 		if (shoppingCart) {
-			// console.log(shoppingCart);
-			setListItems(shoppingCart?.cartItems);
+			console.log("list cart", shoppingCart?.cartItems[0]);
+			setListItems(shoppingCart?.cartItems[0]);
 		}
 	}, [shoppingCart]);
 
