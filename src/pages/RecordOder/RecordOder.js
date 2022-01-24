@@ -4,15 +4,15 @@ import RecordItem from "components/RecordeItem/RecordItem";
 import axiosClient from "../../apis/axiosClient";
 import prodcutApi from "../../apis/productApi";
 import productApi from "../../apis/productApi";
+import { data } from "autoprefixer";
 function RecordOder() {
-  const [datas, setDatas] = useState();
+  const [datas, setDatas] = useState([]);
   const getData = async (controller) => {
     try {
       const res = await axiosClient.get("/purchase", {
         signal: controller.signal,
       });
-      console.log(res);
-      setDatas(res.item.productId);
+      setDatas(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -24,13 +24,24 @@ function RecordOder() {
       controller.abort();
     };
   }, []);
-  console.log(datas);
+  const products = datas.map((item) => {
+    return item.items;
+  });
+  const listItem = products.flat();
+  console.log(listItem);
   return (
-    <div>
-      {datas.map((item, index) => {
-        <RecordItem />;
+    <div className="record__container">
+      {listItem.map((item, index) => {
+        return (
+          <RecordItem
+            img={item.productId.imageUrl}
+            title={item.productId.title}
+            category={item.productId.category}
+            price={item.productId.price}
+            quantity={item.quantity}
+          />
+        );
       })}
-      <RecordItem />
     </div>
   );
 }

@@ -24,7 +24,7 @@ import User from "./pages/User/User";
 import itemApi from "apis/items/itemApi";
 
 function App() {
-	const user = false;
+	const user = true;
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -66,7 +66,7 @@ function App() {
 						path="/user"
 						element={
 							<PrivateRoute>
-								<LoginForm />
+								<User />
 							</PrivateRoute>
 						}
 					/>
@@ -78,7 +78,7 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
-					{/* <Route path="/history" element={<RecordOder />} /> */}
+					<Route path="/history" element={<RecordOder />} />
 					<Route path="*" element={<div>Routes not found</div>} />
 				</Route>
 			</Routes>
