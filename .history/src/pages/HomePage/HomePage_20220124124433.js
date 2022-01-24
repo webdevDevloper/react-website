@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import Rating from "components/Rating/Rating";
 
 import Img1 from "../images/img1.jpg";
 import itemApi from "../../apis/items/itemApi";
@@ -60,7 +59,7 @@ const HomePage = (props) => {
       setDatas(res.data);
     } catch (err) {}
   };
-  // console.log(datas);
+  // console.log(datas[0]);
   const categoriesItem = [
     {
       name: "Arts & Photography",
@@ -114,9 +113,8 @@ const HomePage = (props) => {
     getHomePage();
   }, [id]);
   //
-  const navigateCategory = (param) => {
+  const getCategory = (param) => {
     setCategory(param);
-    navigate(`/${param}`);
   };
   console.log(category);
   //Get item category
@@ -174,15 +172,21 @@ const HomePage = (props) => {
                   plusCategories ? "h-0" : `h-auto`
                 }`}
               >
-                {datas.map((item) => (
+                {categoriesItem.map((item) => (
                   <p
                     className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
                   >
-                    {item?.category}
+                    {item?.name}
                   </p>
                 ))}
               </div>
+            </div>
+            <div className="p-[35px] border-solid border-[1px] border-t-0">
+              <h3 className="flex justify-between items-center text-lg">
+                Filter by price
+                <MinusOutlined className="text-base text-black cursor-pointer" />
+              </h3>
             </div>
 
             <div
@@ -308,48 +312,26 @@ const HomePage = (props) => {
                           className="max-w-full w-full cursor-pointer object-contain md:h-[100px]"
                         />
                       </div>
-                      <div className="homepage-product-item_content ease-out duration-150 text-[16px] mb-1 pt-4 max-h-44 bg-white ">
-                        <div
-                          className="text-xs text-primary capitalize cursor-pointer hover:text-primary ease-in-out duration-150"
-                          onClick={() => {
-                            navigateCategory(item.category);
-                          }}
-                        >
-                          {item?.category}
-                        </div>
-
+                      <div className="homepage-product-item_content ease-out duration-150 text-[16px] mb-1 pt-4 max-h-28 bg-white ">
                         <h2
-                          className="mb-0 cursor-pointer h-11 line-clamp-2 inline-block hover:text-[#f75454] capitalize"
+                          className="mb-0 cursor-pointer h-12 line-clamp-2 inline-block hover:text-[#f75454]"
                           onClick={() => {
                             navigateProduct(item._id);
                           }}
                         >
                           {item?.title}
                         </h2>
-
                         <p
-                          className="text-[#7c6e65] text-[14px] mb-1 cursor-pointer inline-block capitalize"
+                          className="text-[#7c6e65] text-[14px] mb-1 cursor-pointer inline-block"
                           onClick={() => {
                             navigateProduct(item._id);
                           }}
                         >
-                          {item?.description}
+                          {item.description}
                         </p>
-                        <div className="text-xs text-primary  cursor-default">
-                          Còn trong kho: ({item?.countInStocks})
-                        </div>
-                        <p className=" mb-1 text-[18px] font-semibold relative">
-                          {item?.price}{" "}
-                          <span className="text-[14px] absolute top-1/2 -translate-y-1/2">
-                            đ
-                          </span>
+                        <p className=" mb-1 text-[18px] font-semibold">
+                          {item?.price}
                         </p>
-                        <div className="">
-                          <Rating></Rating>{" "}
-                          <span className="inline-block ml-2">
-                            ({item.rating})
-                          </span>
-                        </div>
                       </div>
                       <div className="iphone:text-white lg:text-black cursor-pointer lg:-translate-x-1/2 iphone:m-auto iphone:translate-y-4 lg:translate-y-0 left-2/4 lg:-z-50 lg:absolute bottom-[73px] max-w-[157px] w-full">
                         <ShoppingOutlined

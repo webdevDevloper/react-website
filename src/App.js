@@ -71,7 +71,6 @@ function App() {
 						}
 					/>
 					<Route path="/history" element={<RecordOder />} />
-					<Route path="/user" element={<User />} />
 					<Route path="*" element={<div>Routes not found</div>} />
 				</Route>
 			</Routes>

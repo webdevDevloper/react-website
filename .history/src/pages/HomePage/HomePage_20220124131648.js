@@ -116,7 +116,7 @@ const HomePage = (props) => {
   //
   const navigateCategory = (param) => {
     setCategory(param);
-    navigate(`/${param}`);
+    navigate("${param}");
   };
   console.log(category);
   //Get item category
@@ -174,12 +174,12 @@ const HomePage = (props) => {
                   plusCategories ? "h-0" : `h-auto`
                 }`}
               >
-                {datas.map((item) => (
+                {categoriesItem.map((item) => (
                   <p
                     className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
                   >
-                    {item?.category}
+                    {item?.name}
                   </p>
                 ))}
               </div>
