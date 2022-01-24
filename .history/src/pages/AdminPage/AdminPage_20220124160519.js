@@ -70,8 +70,8 @@ const AdminPage = () => {
       price: data.price,
       category: data.category,
     };
-    // const formData = new FormData();
-    // formData.append("file", this.state.pictureAsFile);
+    const formData = new FormData();
+    formData.append("file", this.state.pictureAsFile);
     addProductAdmin(posts);
     // fetchProductList();
 

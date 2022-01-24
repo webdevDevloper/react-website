@@ -4,9 +4,6 @@ import Styles from "./AdminPage.module.scss";
 import "../AdminPage/AdminPage.css";
 import productApi from "apis/productApi";
 // import { axiosInstance } from "../../apis/baseApi";
-// import axiosClient from "apis/axiosClient";
-import itemApi from "apis/items/itemApi";
-import axiosClient from "apis/axiosClient";
 
 import {
   MinusOutlined,
@@ -22,6 +19,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Row, Col } from "antd";
 import { data } from "autoprefixer";
+import itemApi from "apis/items/itemApi";
 
 const AdminPage = () => {
   const [datas, setDatas] = useState([]);
@@ -29,23 +27,21 @@ const AdminPage = () => {
   const [data, setData] = useState({
     thumbnail: "",
     title: "",
-    description: "",
+    amount: "",
     price: "",
-    category: "",
+    description: "",
   });
   //get thumbnail
-  // useEffect(() => {
-  //   return () => {
-  //     data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
-  //   };
-  // }, [data.thumbnail]);
-
+  useEffect(() => {
+    return () => {
+      data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
+    };
+  }, [data.thumbnail]);
   const handleRenderthumbnail = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setData({ ...data, thumbnail: file.name });
+    setData({ ...data, thumbnail: file.preview });
     setAvatar(file);
-    console.log(file);
   };
 
   //get fake Api
@@ -54,7 +50,7 @@ const AdminPage = () => {
   //--------------------add prodcut-------------------------
   const addProductAdmin = async (post) => {
     try {
-      let response = await axiosClient.post("items", post);
+      const response = await itemApi.postItemAdmin(post);
       console.log(response);
     } catch (err) {
       console.log(err);
@@ -66,12 +62,10 @@ const AdminPage = () => {
     let posts = {
       thumbnail: data.thumbnail,
       title: data.title,
-      description: data.description,
-      price: data.price,
       category: data.category,
+      price: data.price,
+      description: data.description,
     };
-    // const formData = new FormData();
-    // formData.append("file", this.state.pictureAsFile);
     addProductAdmin(posts);
     // fetchProductList();
 
@@ -151,11 +145,11 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
-                name="category"
-                placeholder="Enter your category"
+                name="amount"
+                placeholder="Enter your amount"
                 required
-                value={data.category}
-                onChange={(e) => setData({ ...data, category: e.target.value })}
+                value={data.amount}
+                onChange={(e) => setData({ ...data, amount: e.target.value })}
               />
             </Col>
             <Col
@@ -221,7 +215,7 @@ const AdminPage = () => {
                       {item.title}
                     </h2>
                     <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                      {item.category}
+                      {item.amount}
                     </p>
                     <p className=" mb-1 text-[18px] font-semibold">
                       {item.price}

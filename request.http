@@ -21,7 +21,9 @@ POST {{baseUrl}}/auth/login
 content-type: application/json
 
 {
-    "email": "nguyenkiet1234@gmail.com",
-    "password": "nguyenkiet",
-    "passwordConfirm": "nguyenkiet"
+
+    "email": "admin@gmail.com",
+    "password": "pass1234",
+    "passwordConfirm": "pass1234"
+
 }

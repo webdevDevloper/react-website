@@ -31,7 +31,7 @@ import { Button, Row, Col } from "antd";
 
 const HomePage = (props) => {
   // Wait API use for "name"
-  const [datas, setDatas] = useState([]);
+  const [filterData, setfilterData] = useState([]);
   const [plusCategories, setPlusCategories] = useState(false);
   const [plusFeatured, setPlusFeatured] = useState(false);
   const [searchTerm, setSearchTearm] = useState("");
@@ -39,7 +39,7 @@ const HomePage = (props) => {
   const [id, setId] = useState("");
   const [category, setCategory] = useState("");
   const [clickCategory, setClickCategory] = useState("");
-  // console.log(datas);
+  // console.log(filterData);
   let navigate = useNavigate();
   //--------------------------------
   useEffect(() => {
@@ -76,11 +76,11 @@ const HomePage = (props) => {
         signal: controller.signal,
       });
       // console.log(res);
-      setDatas(res.data);
+      setfilterData(res.data);
     } catch (err) {}
   };
 
-  // console.log(datas);
+  // console.log(filterData);
 
   const handleClickMinusplusCategories = () => {
     setPlusCategories(!plusCategories);
@@ -110,10 +110,9 @@ const HomePage = (props) => {
   }, [id]);
   //
   const categories = [];
-  datas.map((item) => {
+  filterData.map((item) => {
     categories.push(item.category);
   });
-  //unique function
   function unique(arr) {
     let uniqueArr = [];
     //Array.isArray(array) -> value: true or false
@@ -125,17 +124,16 @@ const HomePage = (props) => {
     }
     return uniqueArr;
   }
-  //filter category function
   const [...uniqueCategories] = unique(categories);
-  const [filterData, setFilterData] = useState(datas);
-  const [isAllData, setIsAllData] = useState(true);
+  const [filterData, setFilterData] = useState(filterData);
   const filterResult = (cartItem) => {
-    const result = datas.filter((curData) => {
+    const result = uniqueCategories.filter((curData) => {
       return curData.category === cartItem;
     });
     setFilterData(result);
-    setIsAllData(false);
   };
+  console.log(category);
+  //Get item category
   //-------------------------------------------
   const handleClickCart = async (param) => {
     setId(param);
@@ -148,6 +146,7 @@ const HomePage = (props) => {
       await dispatch(addToCart(product));
       console.log("work");
     }
+    const categories = ["hai", "tieu thuyet"];
   };
 
   return (
@@ -179,15 +178,6 @@ const HomePage = (props) => {
                   plusCategories ? "h-0" : `h-auto`
                 }`}
               >
-                <p
-                  className="py-[9px] hover:text-[#f75454]
-                            cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
-                >
-                  Tất cả sản phẩm
-                </p>
                 {[...category].map((item) => (
                   <p
                     className="py-[9px] hover:text-[#f75454]
@@ -222,7 +212,7 @@ const HomePage = (props) => {
                 )}
               </h3>
               <div className="flex flex-col gap-y-9">
-                {datas.map((item) => (
+                {filterData.map((item) => (
                   <div
                     className={`flex gap-5 items-start  ease-in duration-300 overflow-hidden ${
                       plusFeatured ? "h-0" : `h-auto`
@@ -296,7 +286,7 @@ const HomePage = (props) => {
             </div>
 
             <Row className="">
-              {(isAllData ? datas : filterData)
+              {filterData
 
                 .filter((val) => {
                   if (searchTerm === "") {

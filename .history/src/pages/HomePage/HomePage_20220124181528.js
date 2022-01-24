@@ -182,9 +182,9 @@ const HomePage = (props) => {
                 <p
                   className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
+                  // onClick={() => {
+                  //   setIsAllData(true);
+                  // }}
                 >
                   Tất cả sản phẩm
                 </p>

@@ -60,7 +60,7 @@ const AdminPage = () => {
       console.log(err);
     }
   };
-  console.log(data);
+  // console.log(data);
   async function handleSubmit(e) {
     e.preventDefault();
     let posts = {
