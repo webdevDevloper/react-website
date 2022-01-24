@@ -13,7 +13,11 @@ import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Resgister from "./pages/Resgister/Resgister";
 import AdminPage from "pages/AdminPage/AdminPage";
 import RecordOder from "pages/RecordOder/RecordOder";
+
+import User from "./pages/User/User";
+
 import itemApi from "apis/items/itemApi";
+
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
@@ -82,6 +86,7 @@ function App() {
 						}
 					/>
 					<Route path="/history" element={<RecordOder />} />
+					<Route path="/user" element={<User />} />
 					<Route path="*" element={<div>Routes not found</div>} />
 				</Route>
 			</Routes>

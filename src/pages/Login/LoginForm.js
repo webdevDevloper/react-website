@@ -3,35 +3,23 @@ import React from "react";
 import styles from "./LoginForm.module.scss";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../../apis/axiosClient";
 
 function LoginForm(props) {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	let navigate = useNavigate();
-	useEffect(() => {
-		if (localStorage.getItem("user-info")) {
-			console.log(localStorage.getItem("user-info"));
+	const navigate = useNavigate();
+	const [data, setData] = useState({ email: "", password: "" });
+	const login = async (e) => {
+		try {
+			e.preventDefault();
+			const res = await axiosClient.post("auth/login?", data);
+			console.log(res);
+			window.localStorage.setItem("accessToken", res.token);
 			navigate("/");
-			console.log("logged");
+		} catch (err) {
+			console.log(err);
 		}
-	}, []);
-	async function login(e) {
-		e.preventDefault();
-		let navigate;
-		let item = { email, password };
-		let result = await fetch("http://localhost:3004/user", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify(item),
-		});
-		result = await result.json();
-		localStorage.setItem("user-info", JSON.stringify(result));
-		navigate("/");
-	}
-
+		setData({ email: "", password: "" });
+	};
 	return (
 		<div className={styles.login}>
 			<div className={styles.login__overlay}></div>
@@ -45,8 +33,8 @@ function LoginForm(props) {
 						<input
 							type="text"
 							placeholder="Email"
-							onChange={(e) => setEmail({ ...email, email: e.target.value })}
-							value={email.email}
+							onChange={(e) => setData({ ...data, email: e.target.value })}
+							value={data.email}
 							autoFocus={true}
 						/>
 					</div>
@@ -56,12 +44,12 @@ function LoginForm(props) {
 							type="password"
 							placeholder="Password"
 							onChange={(e) =>
-								setPassword({
-									...password,
+								setData({
+									...data,
 									password: e.target.value,
 								})
 							}
-							value={password.password}
+							value={data.password}
 						/>
 					</div>
 					<button className={styles.login__form__btn} onClick={login}>
