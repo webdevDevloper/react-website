@@ -70,7 +70,7 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
-					<Route path="/history" element={<RecordOder />} />
+					{/* <Route path="/history" element={<RecordOder />} /> */}
 					<Route path="*" element={<div>Routes not found</div>} />
 				</Route>
 			</Routes>
