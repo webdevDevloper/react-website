@@ -19,4 +19,9 @@ export const menuItem = [
 		url: "#",
 		cName: "nav__container__menu__link",
 	},
+	{
+		title: "User",
+		url: "/user",
+		cName: "nav__container__menu__link",
+	},
 ];
