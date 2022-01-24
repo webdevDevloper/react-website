@@ -137,6 +137,7 @@ const HomePage = (props) => {
     setIsAllData(false);
   };
   //-------------------------------------------
+  const [productHomePage, setProductHomePage] = useState();
 
   useEffect(() => {
     const getHomePage = async () => {
