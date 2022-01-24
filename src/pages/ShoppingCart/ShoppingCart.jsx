@@ -14,26 +14,28 @@ const ShoppingCart = (props) => {
 	const shoppingCart = useSelector((state) => state.shoppingCart);
 	const dispatch = useDispatch();
 
-	const [selectedItems, setSelectedItems] = useState([]);
+	const [selectedListItems, setSelectedListItems] = useState([]);
+
+	const [totalProducts, setTotalProducts] = useState(0);
+	const [totalPrice, setTotalPrice] = useState(0);
 
 	const handleKeepShopping = () => {
 		navigate("/");
 	};
 
 	const handleCheckout = () => {
-		const dataToServer = listItems.reduce((accumulator, currentValue) => {
-			const shortenedValue = {
-				productId: currentValue?.productId._id,
-				quantity: currentValue?.quantity,
+		if (selectedListItems.length > 0) {
+			const dataToServer = selectedListItems.map((item) => {
+				// const newItem = { ...item };
+				delete item.price;
+				return item;
+			});
+			const dataWithOuterObject = {
+				product: [...dataToServer],
 			};
-			accumulator.push(shortenedValue);
-			return accumulator;
-		}, []);
-		const dataWithOuterObject = {
-			product: dataToServer,
-		};
-		// console.log(dataWithOuterObject);
-		dispatch(purchaseCart(dataWithOuterObject));
+			console.log(dataWithOuterObject);
+			dispatch(purchaseCart(dataWithOuterObject));
+		}
 	};
 
 	const handleDeleteItem = (item) => {
@@ -41,11 +43,34 @@ const ShoppingCart = (props) => {
 		dispatch(updateCart(item));
 	};
 
-	const handleSelectItem = (item) => {};
+	const handleSelectItem = (selectedItem, isAdding) => {
+		let newSelectedItems = [...selectedListItems];
+		if (isAdding) {
+			newSelectedItems.push(selectedItem);
+		} else {
+			newSelectedItems = selectedListItems.filter(
+				(item) => item.productId !== selectedItem.productId
+			);
+		}
+
+		setSelectedListItems(newSelectedItems);
+		updateTotalAndQuantity(newSelectedItems);
+		// console.log(newSelectedItems);
+	};
+
+	const updateTotalAndQuantity = (listItems) => {
+		// console.log(listItems);
+		setTotalProducts(listItems?.length);
+		const total = listItems.reduce(
+			(accumulator, currentValue) => accumulator + currentValue.price,
+			0
+		);
+		setTotalPrice(total);
+	};
 
 	useEffect(() => {
 		if (shoppingCart) {
-			console.log("list cart", shoppingCart?.cartItems);
+			// console.log("list cart", shoppingCart?.cartItems);
 			setListItems(shoppingCart?.cartItems);
 		}
 	}, [shoppingCart]);
@@ -66,6 +91,7 @@ const ShoppingCart = (props) => {
 								key={index}
 								item={item}
 								deleteItem={handleDeleteItem}
+								selectItem={handleSelectItem}
 							/>
 						))}
 				</div>
@@ -77,13 +103,13 @@ const ShoppingCart = (props) => {
 				</div>
 				<div className="w-full border  text-xl mb-4">
 					<div className="flex justify-between px-4 py-2">
-						<div className="font-semibold">Total Quantity</div>
-						<div>{shoppingCart?.cartItemsQuantity}</div>
+						<div className="font-semibold">Total products</div>
+						<div>{totalProducts}</div>
 					</div>
 					<hr />
 					<div className="flex justify-between px-4 py-2">
-						<div className="font-semibold">Total</div>
-						<div>{shoppingCart?.cartItemsTotal}</div>
+						<div className="font-semibold">Total Price</div>
+						<div>{totalPrice}</div>
 					</div>
 					<hr />
 				</div>

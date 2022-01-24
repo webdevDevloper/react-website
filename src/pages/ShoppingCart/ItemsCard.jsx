@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 function ItemCard({ item, deleteItem, selectItem }) {
 	const [quantity, setQuantity] = useState(1);
 	const [thisItem, setThisItem] = useState(null);
+	const [checkedItem, setCheckedItem] = useState(false);
 
 	const handleDeleteItem = () => {
 		if (deleteItem) {
@@ -19,11 +20,17 @@ function ItemCard({ item, deleteItem, selectItem }) {
 		}
 	};
 
-	const hanldeSelectItem = (e) => {
-		console.log(e.target.value);
-		// if (selectItem) {
-		//     selectItem(item);
-		// }
+	const hanldeSelectItem = async () => {
+		const newCheckedItem = !checkedItem;
+		setCheckedItem(newCheckedItem);
+		if (selectItem) {
+			const item = {
+				productId: thisItem?._id,
+				price: thisItem?.price,
+				quantity: quantity,
+			};
+			selectItem(item, newCheckedItem);
+		}
 	};
 
 	useEffect(() => {
@@ -39,17 +46,19 @@ function ItemCard({ item, deleteItem, selectItem }) {
 	return (
 		<>
 			<div className="mb-6 border md:hidden">
-				<div
-					onClick={handleDeleteItem}
-					className="flex justify-between px-4 py-2 "
-				>
+				<div className="flex justify-between px-4 py-2 ">
 					<input
 						type="checkbox"
 						name=""
 						id=""
+						checked={checkedItem}
 						onChange={hanldeSelectItem}
 					/>
-					<ImCross style={{ color: "#dc2626", cursor: "pointer" }} />
+					<div onClick={handleDeleteItem}>
+						<ImCross
+							style={{ color: "#dc2626", cursor: "pointer" }}
+						/>
+					</div>
 				</div>
 				<hr />
 				<div className="flex justify-between px-4 py-2">
