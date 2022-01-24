@@ -12,7 +12,7 @@ function RecordOder() {
         signal: controller.signal,
       });
       console.log(res);
-      setDatas(res);
+      setDatas(res.item.productId);
     } catch (err) {
       console.log(err);
     }
@@ -24,13 +24,12 @@ function RecordOder() {
       controller.abort();
     };
   }, []);
-  // console.log(d);
   console.log(datas);
   return (
     <div>
-      {/* {datas.map((item, index) => { */}
-      {/*   <RecordItem />; */}
-      {/* })} */}
+      {datas.map((item, index) => {
+        <RecordItem />;
+      })}
       <RecordItem />
     </div>
   );
