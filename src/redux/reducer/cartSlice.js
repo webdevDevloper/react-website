@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import cartApi from "apis/cart/cartApi";
-
+import { toast } from "react-toastify";
 const initialState = {
 	cartItems: [],
 	cartItemsQuantity: 0,
@@ -26,6 +26,9 @@ export const addToCart = createAsyncThunk(
 		try {
 			const response = await cartApi.addToCart(item);
 			thunkAPI.dispatch(getCart());
+			toast.success("Them vao gio hang thanh cong!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -38,6 +41,7 @@ export const getTotal = createAsyncThunk(
 	async (item, thunkAPI) => {
 		try {
 			const response = await cartApi.getTotal({});
+
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -51,6 +55,9 @@ export const purchaseCart = createAsyncThunk(
 		try {
 			const response = await cartApi.purchase(item);
 			thunkAPI.dispatch(getCart());
+			toast.success("Thanh toan thanh cong!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -64,7 +71,10 @@ export const updateCart = createAsyncThunk(
 		try {
 			const response = await cartApi.updateCart(item);
 			thunkAPI.dispatch(getCart());
-			console.log("updated ne");
+			// toast.success("Update thanh cong!", {
+			// 	position: toast.POSITION.BOTTOM_RIGHT,
+			// });
+			// console.log("updated ne");
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
