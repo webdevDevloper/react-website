@@ -31,6 +31,9 @@ export const addToCart = createAsyncThunk(
 			});
 			return response.data;
 		} catch (error) {
+			toast.warn("Vui long dang nhap!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			return thunkAPI.rejectWithValue(error.response.data);
 		}
 	}
