@@ -17,7 +17,6 @@ function LoginForm(props) {
 			e.preventDefault();
 			const res = await axiosClient.post("auth/login?", data);
 			console.log(res);
-			// dispatch(allActions.userActions.setUser(user));
 			dispatch(setUser(data));
 			window.localStorage.setItem("accessToken", res.token);
 			navigate("/");
