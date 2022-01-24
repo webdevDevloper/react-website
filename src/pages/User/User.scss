@@ -1,0 +1,45 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  &__name {
+    font-size: 20px;
+    color: #000;
+  }
+  &__menu {
+    &__item {
+      font-size: 20px;
+      color: #000;
+      text-align: left;
+      margin-bottom: 10px;
+      padding: 0 20px;
+      & > i {
+        margin-right: 10px;
+      }
+      & > a {
+        color: #000;
+      }
+    }
+  }
+  & > img {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+  }
+  &__title {
+    color: grey;
+    font-size: 18px;
+  }
+  & > p > button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: tomato;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+}

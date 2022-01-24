@@ -198,6 +198,8 @@
         margin: 0 20px 0 0;
         & > li > a {
           color: #000;
+          display: block;
+          width: 100%;
         }
         font-size: 20px;
         & > li ~ li {

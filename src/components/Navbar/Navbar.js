@@ -6,13 +6,13 @@ import "../../reset.css";
 
 function Navbar() {
 	const navigate = useNavigate();
-	const user = "";
-	// let user = {
-	// 	avatar:
-	// 		"https://gudlogo.com/wp-content/uploads/2019/05/logo-con-cho-soi-14.png",
-	// 	name: "loc pham",
-	// 	role: "admin",
-	// };
+	// const user = "";
+	let user = {
+		avatar:
+			"https://gudlogo.com/wp-content/uploads/2019/05/logo-con-cho-soi-14.png",
+		name: "loc pham",
+		role: "admin",
+	};
 	const [click, setClick] = useState(false);
 
 	const handleClick = () => {
