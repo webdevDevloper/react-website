@@ -20,6 +20,7 @@ const ShoppingCart = (props) => {
   let navigate = useNavigate();
 
   const [listItems, setListItems] = useState([]);
+  setLocalStorage("listItem", testCartItems);
   const shoppingCart = useSelector((state) => state.shoppingCart);
 
   const handleKeepShopping = () => {
