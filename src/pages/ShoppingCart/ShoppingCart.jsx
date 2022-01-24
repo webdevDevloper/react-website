@@ -46,7 +46,14 @@ const ShoppingCart = (props) => {
 	const handleSelectItem = (selectedItem, isAdding) => {
 		let newSelectedItems = [...selectedListItems];
 		if (isAdding) {
-			newSelectedItems.push(selectedItem);
+			const index = selectedListItems.findIndex(
+				(item) => item.productId === selectedItem.productId
+			);
+			if (index >= 0) {
+				newSelectedItems[index] = selectedItem;
+			} else {
+				newSelectedItems.push(selectedItem);
+			}
 		} else {
 			newSelectedItems = selectedListItems.filter(
 				(item) => item.productId !== selectedItem.productId
@@ -55,14 +62,15 @@ const ShoppingCart = (props) => {
 
 		setSelectedListItems(newSelectedItems);
 		updateTotalAndQuantity(newSelectedItems);
-		// console.log(newSelectedItems);
+		console.log(newSelectedItems);
 	};
 
 	const updateTotalAndQuantity = (listItems) => {
 		// console.log(listItems);
 		setTotalProducts(listItems?.length);
 		const total = listItems.reduce(
-			(accumulator, currentValue) => accumulator + currentValue.price,
+			(accumulator, currentValue) =>
+				accumulator + currentValue.price * currentValue.quantity,
 			0
 		);
 		setTotalPrice(total);

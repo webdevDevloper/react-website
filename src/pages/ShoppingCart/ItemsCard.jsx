@@ -4,8 +4,11 @@ import testImage from "assets/22.jpg";
 import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 import { useDispatch } from "react-redux";
+import { updateCart } from "redux/reducer/cartSlice";
 
 function ItemCard({ item, deleteItem, selectItem }) {
+	const dispatch = useDispatch();
+
 	const [quantity, setQuantity] = useState(1);
 	const [thisItem, setThisItem] = useState(null);
 	const [checkedItem, setCheckedItem] = useState(false);
@@ -20,16 +23,20 @@ function ItemCard({ item, deleteItem, selectItem }) {
 		}
 	};
 
-	const hanldeSelectItem = async () => {
+	const hanldeSelectItem = () => {
 		const newCheckedItem = !checkedItem;
 		setCheckedItem(newCheckedItem);
+		passSelectedDataToParrent(newCheckedItem);
+	};
+
+	const passSelectedDataToParrent = (isChecked) => {
 		if (selectItem) {
 			const item = {
 				productId: thisItem?._id,
 				price: thisItem?.price,
 				quantity: quantity,
 			};
-			selectItem(item, newCheckedItem);
+			selectItem(item, isChecked);
 		}
 	};
 
@@ -39,8 +46,16 @@ function ItemCard({ item, deleteItem, selectItem }) {
 	}, [item]);
 
 	useEffect(() => {
-		// console.log("set moi ne");
-		// Goi update cart o day
+		if (thisItem && checkedItem) {
+			console.log("update ne");
+
+			const newUpdatedItem = {
+				productId: thisItem._id,
+				newQuantity: quantity,
+			};
+			dispatch(updateCart(newUpdatedItem));
+			passSelectedDataToParrent(true);
+		}
 	}, [quantity]);
 
 	return (
