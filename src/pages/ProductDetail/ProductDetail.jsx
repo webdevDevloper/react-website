@@ -10,6 +10,7 @@ import { addItem } from "redux/reducer/cartSlice";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import InputNumber from "components/InputNumber/InputNumber";
+import itemApi from "apis/items/itemApi";
 
 const testData = {
 	id: 0,
@@ -25,11 +26,20 @@ function ProductDetail(props) {
 	const shoppingCart = useSelector((state) => state.shoppingCart);
 	const dispatch = useDispatch();
 
-	const [productDetail, setProductDetail] = useState(testData);
-	console.log(shoppingCart);
+	const [productDetail, setProductDetail] = useState();
+	// console.log(shoppingCart);
 
 	useEffect(() => {
-		console.log(id);
+		const getDetail = async () => {
+			try {
+				const response = await itemApi.getItemById(id, {});
+				setProductDetail(response?.data[0]);
+				console.log("product detail", response?.data[0]);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getDetail();
 	}, [id]);
 
 	const handleAddItemToCart = () => {
@@ -50,26 +60,27 @@ function ProductDetail(props) {
 				<div className="w-full flex justify-center mb-4">
 					<img
 						className="w-52 md:w-56 lg:w-72 object-contain"
-						src={testImage}
+						src={productDetail?.imageUrl}
+						// src={testImage}
 						alt="detail"
 					/>
 				</div>
-				<div>
+				<div className="w-full">
 					<div className="text-2xl font-semibold mb-2">
-						Angry God (All Saints High Book 3)
+						{productDetail?.title}
 					</div>
 					<div>
 						<Rating /> <span>4.5</span>
 					</div>
-					{/* <div className="text-xl font-semibold mb-2">$10</div> */}
-					<div className="mb-2">
+					<div className="text-xl font-semibold mb-2">
+						{productDetail?.price}
+					</div>
+					{/* <div className="mb-2">
 						<span className="text-xl font-semibold mr-2">$10</span>
 						<del className="text-gray-500">$11</del>
-					</div>
-					<div className="text-sm text-gray-800 mb-4">
-						Lorem ipsum dolor sit amet, consectetur adipisicing
-						elit. Explicabo, adipisci. Lorem ipsum dolor sit amet,
-						consectetur adipisicing elit. Cumque, perspiciatis!
+					</div> */}
+					<div className="text-sm text-gray-800 mb-4 ">
+						{productDetail?.description}
 					</div>
 					<div className="lg:flex lg:justify-center lg:items-stretch">
 						<InputNumber
