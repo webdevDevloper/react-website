@@ -19,6 +19,7 @@ export const getCart = createAsyncThunk(
 		try {
 			const response = await cartApi.getCart({});
 			console.log("all cart", response.data);
+			thunkAPI.dispatch(getTotal());
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -42,12 +43,8 @@ export const addToCart = createAsyncThunk(
 export const getTotal = createAsyncThunk(
 	"cart/get-total",
 	async (item, thunkAPI) => {
-		console.log(item);
 		try {
-			console.log(item);
-			const response = await cartApi.addToCart(item);
-			console.log(response.data);
-			thunkAPI.dispatch(getCart());
+			const response = await cartApi.getTotal({});
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -68,7 +65,14 @@ export function calcQuantity(cart) {
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
-	reducers: {},
+	reducers: {
+		setItemQuantity: (state, action) => {
+			state.cartItemsQuantity = action.payload;
+		},
+		cartItemsTotal: (state, action) => {
+			state.cartItemsTotal = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(addToCart.fulfilled, (state, action) => {
 			// Add user to the state array
@@ -78,11 +82,18 @@ export const cartSlice = createSlice({
 		builder.addCase(getCart.fulfilled, (state, action) => {
 			// Add user to the state array
 			state.cartItems.push(action.payload);
+			const quantity = calcQuantity(action.payload);
+			// console.log(quantity);
+			state.cartItemsQuantity = quantity;
+		});
+		builder.addCase(getTotal.fulfilled, (state, action) => {
+			// Add user to the state array
+			// console.log(action.payload);
+			state.cartItemsTotal.push(action.payload);
 		});
 	},
 });
 // Reducers and actions
-export const { removeItem, setItem, initCart, setError, emptyCart, addItem } =
-	cartSlice.actions;
+export const { setItemQuantity, cartItemsTotal } = cartSlice.actions;
 
 export default cartSlice.reducer;
