@@ -137,18 +137,19 @@ const HomePage = (props) => {
     setIsAllData(false);
   };
   //-------------------------------------------
+  const [productHomePage, setProductDetail] = useState();
 
   useEffect(() => {
-    const getHomePage = async () => {
+    const getDetail = async () => {
       try {
         const response = await itemApi.getItemById(id, {});
-        setProductHomePage(response?.data);
-        console.log("product HomePage", response?.data);
+        setProductDetail(response?.data);
+        console.log("product detail", response?.data);
       } catch (error) {
         console.log(error);
       }
     };
-    getHomePage();
+    getDetail();
   }, [id]);
   const handleClickCart = async (param) => {
     setId(param);
