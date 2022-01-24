@@ -159,7 +159,7 @@ const HomePage = (props) => {
         quantity: quantity,
       };
       dispatch(addToCart(product));
-      console.log(id);
+      console.log("work");
     }
   };
 
