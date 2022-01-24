@@ -1,22 +1,43 @@
 import PrimaryButton, { SecondButton } from "components/StyledButton/Button";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { purchaseCart } from "redux/reducer/cartSlice";
 import ItemCard from "./ItemsCard";
 
 const ShoppingCart = (props) => {
 	let navigate = useNavigate();
 
 	const [listItems, setListItems] = useState([]);
+
 	const shoppingCart = useSelector((state) => state.shoppingCart);
+	const dispatch = useDispatch();
 
 	const handleKeepShopping = () => {
 		navigate("/");
 	};
+
+	const handleCheckout = () => {
+		const dataToServer = listItems.reduce((accumulator, currentValue) => {
+			const shortenedValue = {
+				productId: currentValue?.productId._id,
+				quantity: currentValue?.quantity,
+			};
+			accumulator.push(shortenedValue);
+			return accumulator;
+		}, []);
+		const dataWithOuterObject = {
+			product: dataToServer,
+		};
+		// console.log(dataWithOuterObject);
+		dispatch(purchaseCart(dataWithOuterObject));
+	};
+
 	useEffect(() => {
 		if (shoppingCart) {
-			console.log("list cart", shoppingCart?.cartItems[0]);
-			setListItems(shoppingCart?.cartItems[0]);
+			console.log("list cart", shoppingCart?.cartItems);
+			setListItems(shoppingCart?.cartItems);
 		}
 	}, [shoppingCart]);
 
@@ -44,17 +65,20 @@ const ShoppingCart = (props) => {
 				<div className="w-full border  text-xl mb-4">
 					<div className="flex justify-between px-4 py-2">
 						<div className="font-semibold">Total Quantity</div>
-						<div>2</div>
+						<div>{shoppingCart?.cartItemsQuantity}</div>
 					</div>
 					<hr />
 					<div className="flex justify-between px-4 py-2">
 						<div className="font-semibold">Total</div>
-						<div>$10</div>
+						<div>{shoppingCart?.cartItemsTotal}</div>
 					</div>
 					<hr />
 				</div>
 
-				<PrimaryButton className="mb-4 shadow-md md:text-lg">
+				<PrimaryButton
+					onClick={handleCheckout}
+					className="mb-4 shadow-md md:text-lg"
+				>
 					Proceed to checkout
 				</PrimaryButton>
 				<SecondButton
