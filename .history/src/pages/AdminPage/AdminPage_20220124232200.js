@@ -109,15 +109,13 @@ const AdminPage = () => {
     bodyFormData.append("description", data.description);
     bodyFormData.append("price", data.price);
     bodyFormData.append("category", data.category);
-    const token = getLocalStorage("token");
-
     axios({
       method: "post",
       url: "http://34.225.250.142:3000/api/v1/items",
       data: bodyFormData,
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWMwZTM3ZGQ4NmJkZGExZGZlYjQ0ZiIsImlhdCI6MTY0Mjg3MTA0MCwiZXhwIjoxNjQ1NDYzMDQwfQ.acSQSZ6Mo2ZVRqQqk4ykqmhHbqbf9HAxPgghBfdrTrQ`,
       },
     })
       .then(function (response) {
@@ -260,9 +258,6 @@ const AdminPage = () => {
           className="
                 filter py-[10px] px-[15px] border border-solid rounded-md lg:max-w-[25%] w-full outline-none my-5 iphone:max-w-[25%] "
           placeholder="Search your product"
-          onChange={(event) => {
-            setSearchTearm(event.target.value);
-          }}
         />
         <div>
           <Row className="relative">

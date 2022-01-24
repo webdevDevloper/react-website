@@ -117,7 +117,7 @@ const AdminPage = () => {
       data: bodyFormData,
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWMwZTM3ZGQ4NmJkZGExZGZlYjQ0ZiIsImlhdCI6MTY0Mjg3MTA0MCwiZXhwIjoxNjQ1NDYzMDQwfQ.acSQSZ6Mo2ZVRqQqk4ykqmhHbqbf9HAxPgghBfdrTrQ`,
       },
     })
       .then(function (response) {
