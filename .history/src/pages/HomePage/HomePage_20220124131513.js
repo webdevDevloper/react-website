@@ -114,9 +114,8 @@ const HomePage = (props) => {
     getHomePage();
   }, [id]);
   //
-  const navigateCategory = (param) => {
+  const getCategory = (param) => {
     setCategory(param);
-    navigate(`/${param}`);
   };
   console.log(category);
   //Get item category
@@ -174,12 +173,12 @@ const HomePage = (props) => {
                   plusCategories ? "h-0" : `h-auto`
                 }`}
               >
-                {datas.map((item) => (
+                {categoriesItem.map((item) => (
                   <p
                     className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
                   >
-                    {item?.category}
+                    {item?.name}
                   </p>
                 ))}
               </div>
@@ -312,14 +311,14 @@ const HomePage = (props) => {
                         <div
                           className="text-xs text-primary capitalize cursor-pointer hover:text-primary ease-in-out duration-150"
                           onClick={() => {
-                            navigateCategory(item.category);
+                            getCategory(item.category);
                           }}
                         >
                           {item?.category}
                         </div>
 
                         <h2
-                          className="mb-0 cursor-pointer h-11 line-clamp-2 inline-block hover:text-[#f75454] capitalize"
+                          className="mb-0 cursor-pointer h-11 line-clamp-2 inline-block hover:text-[#f75454]"
                           onClick={() => {
                             navigateProduct(item._id);
                           }}
@@ -335,7 +334,7 @@ const HomePage = (props) => {
                         >
                           {item?.description}
                         </p>
-                        <div className="text-xs text-primary  cursor-default">
+                        <div className="text-xs text-primary capitalize cursor-default">
                           Còn trong kho: ({item?.countInStocks})
                         </div>
                         <p className=" mb-1 text-[18px] font-semibold relative">

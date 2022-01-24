@@ -51,7 +51,6 @@ function ProductDetail(props) {
         quantity: quantity,
       };
       dispatch(addToCart(product));
-      console.log("work");
     }
 
     // toast.success("Them vao gio hang thanh cong!", {

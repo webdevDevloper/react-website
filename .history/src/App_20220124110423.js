@@ -17,6 +17,20 @@ import itemApi from "apis/items/itemApi";
 function App() {
   const user = false;
   const dispatch = useDispatch();
+  const [datas, setDatas] = useState([]);
+  const products = datas;
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    // const controller = new AbortController();
+    // getData(controller);
+    // return () => {
+    // 	controller.abort();
+    // };
+  }, []);
+  // console.log(`products ${products}`);
+  // console.log(products);
+  console.log(cartItems);
 
   return (
     <BrowserRouter>

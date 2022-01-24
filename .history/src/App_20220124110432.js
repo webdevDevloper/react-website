@@ -17,6 +17,8 @@ import itemApi from "apis/items/itemApi";
 function App() {
   const user = false;
   const dispatch = useDispatch();
+  const [datas, setDatas] = useState([]);
+  const products = datas;
 
   return (
     <BrowserRouter>
