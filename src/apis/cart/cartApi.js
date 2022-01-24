@@ -5,18 +5,22 @@ const cartApi = {
 		const url = "cart";
 		return axiosClient.get(url, params);
 	},
-	updateCart: (params) => {
-		const url = `cart/update`;
-		return axiosClient.get(url, params);
-	},
+
 	getTotal: (params) => {
 		const url = `cart/get-total`;
 		return axiosClient.get(url, params);
 	},
+
+	updateCart: (data) => {
+		const url = `cart/update`;
+		return axiosClient.post(url, data);
+	},
+
 	addToCart: (data) => {
 		const url = `cart/add`;
 		return axiosClient.post(url, data);
 	},
+
 	purchase: (data) => {
 		const url = `purchase`;
 		return axiosClient.post(url, data);

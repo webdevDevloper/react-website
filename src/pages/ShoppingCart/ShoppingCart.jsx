@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { purchaseCart } from "redux/reducer/cartSlice";
+import { purchaseCart, updateCart } from "redux/reducer/cartSlice";
 import ItemCard from "./ItemsCard";
 
 const ShoppingCart = (props) => {
@@ -34,6 +34,11 @@ const ShoppingCart = (props) => {
 		dispatch(purchaseCart(dataWithOuterObject));
 	};
 
+	const handleDeleteItem = (item) => {
+		console.log(item);
+		dispatch(updateCart(item));
+	};
+
 	useEffect(() => {
 		if (shoppingCart) {
 			console.log("list cart", shoppingCart?.cartItems);
@@ -53,7 +58,11 @@ const ShoppingCart = (props) => {
 					{listItems &&
 						listItems.length > 0 &&
 						listItems.map((item, index) => (
-							<ItemCard key={index} item={item} />
+							<ItemCard
+								key={index}
+								item={item}
+								deleteItem={handleDeleteItem}
+							/>
 						))}
 				</div>
 			</div>

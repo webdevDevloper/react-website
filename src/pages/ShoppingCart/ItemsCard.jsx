@@ -11,7 +11,11 @@ function ItemCard({ item, deleteItem, selectItem }) {
 
 	const handleDeleteItem = () => {
 		if (deleteItem) {
-			deleteItem(item);
+			const reducedItem = {
+				productId: item?._id,
+				newQuantity: 0,
+			};
+			deleteItem(reducedItem);
 		}
 	};
 
@@ -95,7 +99,10 @@ function ItemCard({ item, deleteItem, selectItem }) {
 				<div className="justify-self-center">
 					{thisItem?.price * quantity}
 				</div>
-				<div className="cursor-pointer justify-self-center">
+				<div
+					className="cursor-pointer justify-self-center"
+					onClick={handleDeleteItem}
+				>
 					<ImCross style={{ color: "#dc2626" }} />
 				</div>
 			</div>

@@ -58,6 +58,19 @@ export const purchaseCart = createAsyncThunk(
 	}
 );
 
+export const updateCart = createAsyncThunk(
+	"cart/update",
+	async (item, thunkAPI) => {
+		try {
+			const response = await cartApi.updateCart(item);
+			thunkAPI.dispatch(getCart());
+			return response.data;
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+
 export function calcQuantity(cart) {
 	if (!cart) return 0;
 
