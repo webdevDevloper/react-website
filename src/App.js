@@ -20,17 +20,13 @@ function App() {
 	const [datas, setDatas] = useState([]);
 	const products = datas;
 	const [cartItems, setCartItems] = useState([]);
-	useEffect(() => {
-		dispatch(initCart());
-	}, []);
-	useEffect(() => {
-		const controller = new AbortController();
 
-		getData(controller);
-
-		return () => {
-			controller.abort();
-		};
+	useEffect(() => {
+		// const controller = new AbortController();
+		// getData(controller);
+		// return () => {
+		// 	controller.abort();
+		// };
 	}, []);
 
 	const getData = async (controller) => {
@@ -50,14 +46,14 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<MainLayout />}>
-					<Route index element={<HomePage product={products} />} />
+					<Route index element={<HomePage />} />
 					<Route path="/home" element={<HomePage />} />
-					<Route path="/product/:_id" element={<ProductDetail />} />
+					<Route path="/product/:id" element={<ProductDetail />} />
 					<Route
 						path="/cart"
 						element={
 							<PrivateRoute>
-								<ShoppingCart cartItems={cartItems} />
+								<ShoppingCart />
 							</PrivateRoute>
 						}
 					/>

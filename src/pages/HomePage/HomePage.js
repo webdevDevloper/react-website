@@ -35,7 +35,7 @@ const HomePage = (props) => {
   useEffect(() => {
     const controller = new AbortController();
 
-    getData(controller);
+    // getData(controller);
 
     return () => {
       controller.abort();
