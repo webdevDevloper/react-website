@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import axiosClient from "../../apis/axiosClient";
 
 function LoginForm(props) {
+	// dispatch(setUser(user));
+	// const user = userSelector((state) => state.user.value);
+
 	const navigate = useNavigate();
 	const [data, setData] = useState({ email: "", password: "" });
 	const login = async (e) => {
