@@ -12,7 +12,7 @@ export const getCart = createAsyncThunk(
 	async (item, thunkAPI) => {
 		try {
 			const response = await cartApi.getCart({});
-			thunkAPI.dispatch(getTotal());
+			// thunkAPI.dispatch(getTotal());
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -64,6 +64,7 @@ export const updateCart = createAsyncThunk(
 		try {
 			const response = await cartApi.updateCart(item);
 			thunkAPI.dispatch(getCart());
+			console.log("updated ne");
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);

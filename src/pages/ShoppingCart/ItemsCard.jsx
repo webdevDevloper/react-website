@@ -1,5 +1,5 @@
 import InputNumber from "components/InputNumber/InputNumber";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import testImage from "assets/22.jpg";
 import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
@@ -12,6 +12,7 @@ function ItemCard({ item, deleteItem, selectItem }) {
 	const [quantity, setQuantity] = useState(1);
 	const [thisItem, setThisItem] = useState(null);
 	const [checkedItem, setCheckedItem] = useState(false);
+	const debounceUpdateRef = useRef(null);
 
 	const handleDeleteItem = () => {
 		if (deleteItem) {
@@ -40,21 +41,29 @@ function ItemCard({ item, deleteItem, selectItem }) {
 		}
 	};
 
+	const handleUpdateCart = (newUpdatedItem) => {
+		if (debounceUpdateRef.current) {
+			clearTimeout(debounceUpdateRef.current);
+		}
+
+		debounceUpdateRef.current = setTimeout(() => {
+			dispatch(updateCart(newUpdatedItem));
+		}, 1000);
+	};
+
 	useEffect(() => {
 		setQuantity(item?.quantity);
 		setThisItem(item?.productId);
 	}, [item]);
 
 	useEffect(() => {
-		if (thisItem && checkedItem) {
-			console.log("update ne");
-
+		if (thisItem) {
 			const newUpdatedItem = {
 				productId: thisItem._id,
 				newQuantity: quantity,
 			};
-			dispatch(updateCart(newUpdatedItem));
-			passSelectedDataToParrent(true);
+			handleUpdateCart(newUpdatedItem);
+			passSelectedDataToParrent(checkedItem);
 		}
 	}, [quantity]);
 
@@ -105,7 +114,14 @@ function ItemCard({ item, deleteItem, selectItem }) {
 			{/* Middle screen display */}
 			<div className="hidden md:grid grid-cols-10 mb-4 text-xl items-center gap-4 px-2">
 				<div className="justify-self-center">
-					<input type="checkbox" name="" id="" width={"30px"} />
+					<input
+						type="checkbox"
+						name=""
+						id=""
+						width={"30px"}
+						onChange={hanldeSelectItem}
+						checked={checkedItem}
+					/>
 				</div>
 				<img
 					src={`${thisItem?.imageUrl}`}

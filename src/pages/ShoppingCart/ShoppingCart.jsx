@@ -35,12 +35,15 @@ const ShoppingCart = (props) => {
 			};
 			console.log(dataWithOuterObject);
 			dispatch(purchaseCart(dataWithOuterObject));
+			setTotalProducts(0);
+			setTotalPrice(0);
 		}
 	};
 
 	const handleDeleteItem = (item) => {
 		console.log(item);
 		dispatch(updateCart(item));
+		handleSelectItem(item, false);
 	};
 
 	const handleSelectItem = (selectedItem, isAdding) => {
@@ -62,7 +65,7 @@ const ShoppingCart = (props) => {
 
 		setSelectedListItems(newSelectedItems);
 		updateTotalAndQuantity(newSelectedItems);
-		console.log(newSelectedItems);
+		// console.log("select item", newSelectedItems);
 	};
 
 	const updateTotalAndQuantity = (listItems) => {
@@ -86,7 +89,7 @@ const ShoppingCart = (props) => {
 	return (
 		//----------------------------
 		//
-		<div className="flex flex-col mx-auto items-center w-10/12 md:w-11/12 text-gray-800 md:flex-row">
+		<div className="flex flex-col mx-auto w-10/12 md:w-11/12 text-gray-800 md:flex-row">
 			<div className="w-full md:w-9/12 md:mr-4">
 				<div className="text-2xl mb-4 font-semibold text-center">
 					Your cart
@@ -102,6 +105,9 @@ const ShoppingCart = (props) => {
 								selectItem={handleSelectItem}
 							/>
 						))}
+					{(!listItems || listItems.length <= 0) && (
+						<div>Your cart is empty!</div>
+					)}
 				</div>
 			</div>
 
