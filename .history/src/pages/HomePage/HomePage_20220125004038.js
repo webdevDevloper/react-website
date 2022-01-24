@@ -151,20 +151,19 @@ const HomePage = (props) => {
     getHomePage();
   }, [id]);
   //hover
-  // const productCartItem = document.querySelector(".product_cart_item");
-  // console.log(productCartItem);
-  // productCartItem.addEventListener("mousemove", (param) => {
-  //   setId(param._id);
-  //   console.log(param);
-  // });
-  const handleHoverCart = (param) => {
-    setId(param);
+  const productCartItem = document.querySelector(".product_cart_item");
+  console.log(productCartItem);
+  productCartItem.addEventListener("mouseenter", (param) => {
+    setId(param._id);
     console.log(param);
+  });
+  const handleHoverCart = (param) => {
+    // setId(param);
+    // console.log(param);
   };
 
   const handleClickCart = async (param) => {
     // console.log(id);
-    setId(param);
     if (productHomePage) {
       const product = {
         productId: id,
@@ -396,11 +395,11 @@ const HomePage = (props) => {
                       <div className="product_cart_item iphone:text-white lg:text-black cursor-pointer lg:-translate-x-1/2 iphone:m-auto iphone:translate-y-4 lg:translate-y-0 left-2/4 lg:-z-50 lg:absolute bottom-[73px] max-w-[157px] w-full">
                         <ShoppingOutlined
                           className="homePage_button  lg:bg-white iphone:bg-primary p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl lg:absolute w-full lg:-translate-x-1/2	lg:left-2/4"
-                          onClick={handleClickCart}
+                          // onClick={handleClickCart}
                           // onClick={() => {
                           //   handleClickCart(item._id);
                           // }}
-                          onMouseOver={() => {
+                          onmouseover={() => {
                             handleHoverCart(item._id);
                           }}
                         ></ShoppingOutlined>

@@ -162,9 +162,8 @@ const HomePage = (props) => {
     console.log(param);
   };
 
-  const handleClickCart = async (param) => {
+  const handleClickCart = async (id) => {
     // console.log(id);
-    setId(param);
     if (productHomePage) {
       const product = {
         productId: id,

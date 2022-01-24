@@ -44,6 +44,8 @@ function ProductDetail(props) {
     getDetail();
   }, [id]);
 
+  // console.log(productDetail._id);
+  console.log("productDetail._id");
   const handleAddItemToCart = async () => {
     if (productDetail) {
       const product = {
