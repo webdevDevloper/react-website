@@ -14,7 +14,7 @@ const getAccessToken = () => {
 };
 
 const axiosClient = axios.create({
-	baseURL: { baseURL },
+	baseURL: baseURL,
 	headers: {
 		"content-type": "application/json",
 	},

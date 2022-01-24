@@ -1,16 +1,18 @@
 import react, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { menuItem } from "./menuItem";
 import styles from "./Navbar.module.scss";
 import "../../reset.css";
 
 function Navbar() {
-	// const user = "";
-	const user = {
-		avatar: "https://gudlogo.com/wp-content/uploads/2019/05/logo-con-cho-soi-14.png",
-		name: "loc pham",
-		role: "admin",
-	};
+	const navigate = useNavigate();
+	const user = "";
+	// let user = {
+	// 	avatar:
+	// 		"https://gudlogo.com/wp-content/uploads/2019/05/logo-con-cho-soi-14.png",
+	// 	name: "loc pham",
+	// 	role: "admin",
+	// };
 	const [click, setClick] = useState(false);
 
 	const handleClick = () => {
@@ -20,14 +22,15 @@ function Navbar() {
 	const closeMobile = () => {
 		setClick(false);
 	};
+	const handleLogOut = () => {
+		window.localStorage.removeItem("accessToken");
+		navigate("/login");
+	};
 
 	return (
 		<div className={styles.nav}>
 			<div className={styles.nav__container}>
-				<div
-					className={styles.nav__container__icon}
-					onClick={handleClick}
-				>
+				<div className={styles.nav__container__icon} onClick={handleClick}>
 					<i className={click ? "fas fa-times" : "fas fa-bars"}></i>
 				</div>
 
@@ -47,9 +50,7 @@ function Navbar() {
 							<li key={index}>
 								<Link
 									to={item.url}
-									className={
-										styles.nav__container__menu__link
-									}
+									className={styles.nav__container__menu__link}
 									onClick={closeMobile}
 								>
 									{item.title}
@@ -71,14 +72,12 @@ function Navbar() {
 
 								{user.role === "admin" ? (
 									<li>
-										<Link to="/create-product">
-											Add Products
-										</Link>
+										<Link to="/create-product">Add Products</Link>
 									</li>
 								) : (
 									""
 								)}
-								<li onClick={closeMobile}>Log Out</li>
+								<li onClick={handleLogOut}>Log Out</li>
 							</ul>
 						</>
 					) : (

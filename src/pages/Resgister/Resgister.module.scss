@@ -103,7 +103,7 @@
           font-size: 16px;
           width: 380px;
           color: #fff;
-          padding: 20px 30px;
+          padding: 10px 20px;
           color: #fff;
           border-radius: 40px;
           border: 0;
@@ -155,8 +155,12 @@
           border-radius: 10px;
           @include mobile {
             padding: 10px 20px;
-            top: -560px;
-            right: -240px;
+            top: -578px;
+            right: -260px;
+          }
+          @include small-tablet {
+            top: -580px;
+            right: -380px;
           }
           @include tablet {
             right: -400px;
