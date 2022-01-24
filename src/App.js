@@ -63,6 +63,14 @@ function App() {
 						}
 					/>
 					<Route
+						path="/user"
+						element={
+							<PrivateRoute>
+								<LoginForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
 						path="/create-product"
 						element={
 							<PrivateRoute>
@@ -70,7 +78,7 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
-					<Route path="/history" element={<RecordOder />} />
+					{/* <Route path="/history" element={<RecordOder />} /> */}
 					<Route path="*" element={<div>Routes not found</div>} />
 				</Route>
 			</Routes>

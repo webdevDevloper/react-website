@@ -10,6 +10,7 @@ function Resgister(props) {
     password: "",
     passwordConfirm: "",
   });
+
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -19,6 +20,7 @@ function Resgister(props) {
       setFormErrors(validate(data));
       setIsSubmit(true);
       const res = await axiosClient.post("/auth/signup", data);
+      alert("dang ky thanh cong");
       navigate("/login");
     } catch (err) {
       console.log(err.preview.message);
@@ -26,6 +28,7 @@ function Resgister(props) {
   };
   useEffect(() => {
     console.log(formErrors);
+
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(data);
     }
@@ -67,6 +70,7 @@ function Resgister(props) {
               value={data.name}
               autoFocus={true}
             />
+            <p>{formErrors.name}</p>
           </div>
           <div className={styles.resgister__form__container__gorup}>
             <input
@@ -76,6 +80,7 @@ function Resgister(props) {
               value={data.email}
               autoFocus={true}
             />
+            <p>{formErrors.email}</p>
           </div>
           <div className={styles.resgister__form__container__gorup}>
             <input
@@ -85,6 +90,7 @@ function Resgister(props) {
               onChange={(e) => setData({ ...data, password: e.target.value })}
               value={data.password}
             />
+            <p>{formErrors.password}</p>
           </div>
           <div className={styles.resgister__form__container__gorup}>
             <input

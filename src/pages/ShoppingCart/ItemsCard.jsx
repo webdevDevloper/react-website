@@ -7,10 +7,15 @@ import { useDispatch } from "react-redux";
 
 function ItemCard({ item, deleteItem, selectItem }) {
 	const [quantity, setQuantity] = useState(1);
+	const [thisItem, setThisItem] = useState(null);
 
 	const handleDeleteItem = () => {
 		if (deleteItem) {
-			deleteItem(item);
+			const reducedItem = {
+				productId: thisItem?._id,
+				newQuantity: 0,
+			};
+			deleteItem(reducedItem);
 		}
 	};
 
@@ -23,6 +28,7 @@ function ItemCard({ item, deleteItem, selectItem }) {
 
 	useEffect(() => {
 		setQuantity(item?.quantity);
+		setThisItem(item?.productId);
 	}, [item]);
 
 	useEffect(() => {
@@ -48,12 +54,12 @@ function ItemCard({ item, deleteItem, selectItem }) {
 				<hr />
 				<div className="flex justify-between px-4 py-2">
 					<div className="font-semibold">Product name</div>
-					<div>Ten san pham</div>
+					<div>{thisItem?.title}</div>
 				</div>
 				<hr />
 				<div className="flex justify-between px-4 py-2">
 					<div className="font-semibold">Price</div>
-					<div>Ten san pham</div>
+					<div>{thisItem?.price}</div>
 				</div>
 				<hr />
 				<div className="flex justify-between px-4 py-2 items-center">
@@ -68,7 +74,7 @@ function ItemCard({ item, deleteItem, selectItem }) {
 				<hr />
 				<div className="flex justify-between px-4 py-2">
 					<div className="font-semibold">Subtotal</div>
-					<div>100</div>
+					<div>{thisItem?.price * quantity}</div>
 				</div>
 			</div>
 
@@ -78,20 +84,25 @@ function ItemCard({ item, deleteItem, selectItem }) {
 					<input type="checkbox" name="" id="" width={"30px"} />
 				</div>
 				<img
-					src={testImage}
+					src={`${thisItem?.imageUrl}`}
 					className="w-32 h-24 object-contain justify-self-center"
 					alt=""
 				/>
 				<Link to={`#`} className="col-span-3 justify-self-center">
 					{" "}
-					Ten san pham asd asd s asd asd asd asd
+					{thisItem?.title}
 				</Link>
-				<div className="justify-self-center">100000</div>
+				<div className="justify-self-center">{thisItem?.price}</div>
 				<div className="justify-self-center col-span-2">
 					<InputNumber number={quantity} setNumber={setQuantity} />
 				</div>
-				<div className="justify-self-center">1000</div>
-				<div className="cursor-pointer justify-self-center">
+				<div className="justify-self-center">
+					{thisItem?.price * quantity}
+				</div>
+				<div
+					className="cursor-pointer justify-self-center"
+					onClick={handleDeleteItem}
+				>
 					<ImCross style={{ color: "#dc2626" }} />
 				</div>
 			</div>
