@@ -7,7 +7,6 @@ function User() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let user = useSelector((state) => state.user.value);
-  // const dispatch = useDispatch();
   console.log(user);
   const handleLogOut = () => {
     console.log("run.....");
