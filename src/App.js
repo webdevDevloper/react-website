@@ -5,7 +5,12 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addToCart, fetchUserById, initCart } from "redux/reducer/cartSlice";
+import {
+	addToCart,
+	fetchUserById,
+	getCart,
+	initCart,
+} from "redux/reducer/cartSlice";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginForm from "./pages/Login/LoginForm";
@@ -21,30 +26,10 @@ import itemApi from "apis/items/itemApi";
 function App() {
 	const user = false;
 	const dispatch = useDispatch();
-	const [datas, setDatas] = useState([]);
-	const products = datas;
-	const [cartItems, setCartItems] = useState([]);
 
 	useEffect(() => {
-		// const controller = new AbortController();
-		// getData(controller);
-		// return () => {
-		// 	controller.abort();
-		// };
+		dispatch(getCart());
 	}, []);
-
-	const getData = async (controller) => {
-		try {
-			const res = await itemApi.getAllItems({
-				signal: controller.signal,
-			});
-			// console.log(res);
-			setDatas(res.data);
-		} catch (err) {}
-	};
-	// console.log(`products ${products}`);
-	// console.log(products);
-	console.log(cartItems);
 
 	return (
 		<BrowserRouter>

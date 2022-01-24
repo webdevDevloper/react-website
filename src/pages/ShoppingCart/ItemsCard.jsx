@@ -26,7 +26,7 @@ function ItemCard({ item, deleteItem, selectItem }) {
 	}, [item]);
 
 	useEffect(() => {
-		console.log("set moi ne");
+		// console.log("set moi ne");
 		// Goi update cart o day
 	}, [quantity]);
 
