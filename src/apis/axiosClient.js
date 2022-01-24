@@ -9,36 +9,36 @@ import { getLocalStorage } from "utils/localStorage";
 // config` for the full list of configs
 
 const getAccessToken = () => {
-  const token = getLocalStorage("token");
-  return token;
+	const token = getLocalStorage("token");
+	return token;
 };
 
 const axiosClient = axios.create({
-  baseURL: baseURL,
-  headers: {
-    "content-type": "application/json",
-  },
-  paramsSerializer: (params) => queryString.stringify(params),
+	baseURL: baseURL,
+	headers: {
+		"content-type": "application/json",
+	},
+	paramsSerializer: (params) => queryString.stringify(params),
 });
 axiosClient.interceptors.request.use(async (config) => {
-  // Handle token here ...
-  const accessToken = getAccessToken();
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
+	// Handle token here ...
+	const accessToken = getAccessToken();
+	if (accessToken) {
+		config.headers.Authorization = `Bearer ${accessToken}`;
+	}
 
-  return config;
+	return config;
 });
 axiosClient.interceptors.response.use(
-  (response) => {
-    if (response && response.data) {
-      return response.data;
-    }
-    return response;
-  },
-  (error) => {
-    // Handle errors
-    throw error;
-  }
+	(response) => {
+		if (response && response.data) {
+			return response.data;
+		}
+		return response;
+	},
+	(error) => {
+		// Handle errors
+		throw error;
+	}
 );
 export default axiosClient;
