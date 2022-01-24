@@ -1,6 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./User.scss";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducer/userSlice";
+
 function User() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    console.log("run.....");
+    window.localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="card">
@@ -11,25 +23,15 @@ function User() {
             <i class="fas fa-shopping-cart"></i>
             <Link to="/history">My Order</Link>
           </li>
-          <li className="card__menu__item" to="/history">
+          <li className="card__menu__item" to="/history" onClick={handleLogOut}>
             <i class="fas fa-sign-out-alt"></i>
             Log Out
           </li>
         </ul>
-        {/* <a href="#"> */}
-        {/*   <i className="fa fa-dribbble"></i> */}
-        {/* </a> */}
-        {/* <a href="#"> */}
-        {/*   <i className="fa fa-twitter"></i> */}
-        {/* </a> */}
-        {/* <a href="#"> */}
-        {/*   <i className="fa fa-linkedin"></i> */}
-        {/* </a> */}
-        {/* <a href="#"> */}
-        {/*   <i className="fa fa-facebook"></i> */}
-        {/* </a> */}
         <p>
-          <button>Home</button>
+          <Link to="/">
+            <button>Home</button>
+          </Link>
         </p>
       </div>
     </>

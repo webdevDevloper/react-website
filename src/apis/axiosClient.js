@@ -9,7 +9,7 @@ import { getLocalStorage } from "utils/localStorage";
 // config` for the full list of configs
 
 const getAccessToken = () => {
-	const token = getLocalStorage("accessToken");
+	const token = getLocalStorage("token");
 	return token;
 };
 
