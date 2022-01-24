@@ -10,7 +10,6 @@ function Navbar() {
 	const navigate = useNavigate();
 	let user = useSelector((state) => state.user.value);
 	const dispatch = useDispatch();
-	console.log(user);
 	const [click, setClick] = useState(false);
 
 	const handleClick = () => {
@@ -71,7 +70,7 @@ function Navbar() {
 									<Link to="/history">My Order</Link>
 								</li>
 
-								{user.role === "admin" ? (
+								{user.data.role && user.data.role === "admin" ? (
 									<li>
 										<Link to="/create-product">Add Products</Link>
 									</li>

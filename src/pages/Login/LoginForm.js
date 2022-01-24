@@ -17,7 +17,7 @@ function LoginForm(props) {
 			e.preventDefault();
 			const res = await axiosClient.post("auth/login?", data);
 			console.log(res);
-			dispatch(setUser(data));
+			dispatch(setUser(res));
 			window.localStorage.setItem("token", res.token);
 			navigate("/");
 		} catch (err) {
