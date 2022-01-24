@@ -4,9 +4,6 @@ import Styles from "./AdminPage.module.scss";
 import "../AdminPage/AdminPage.css";
 import productApi from "apis/productApi";
 // import { axiosInstance } from "../../apis/baseApi";
-// import axiosClient from "apis/axiosClient";
-import itemApi from "apis/items/itemApi";
-import axiosClient from "apis/axiosClient";
 
 import {
   MinusOutlined,
@@ -27,25 +24,24 @@ const AdminPage = () => {
   const [datas, setDatas] = useState([]);
   const [avatar, setAvatar] = useState();
   const [data, setData] = useState({
-    thumbnail: "",
+    image: "",
     title: "",
-    description: "",
+    amount: "",
     price: "",
-    category: "",
+    description: "",
   });
-  //get thumbnail
-  // useEffect(() => {
-  //   return () => {
-  //     data.thumbnail && URL.revokeObjectURL(data.thumbnail.preview);
-  //   };
-  // }, [data.thumbnail]);
-
-  const handleRenderthumbnail = (e) => {
+  const endpoint = "http://localhost:3000/courses";
+  //get Image
+  useEffect(() => {
+    return () => {
+      data.image && URL.revokeObjectURL(data.image.preview);
+    };
+  }, [data.image]);
+  const handleRenderImage = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setData({ ...data, thumbnail: file.name });
+    setData({ ...data, image: file.preview });
     setAvatar(file);
-    console.log(file);
   };
 
   //get fake Api
@@ -54,7 +50,7 @@ const AdminPage = () => {
   //--------------------add prodcut-------------------------
   const addProductAdmin = async (post) => {
     try {
-      let response = await axiosClient.post("items", post);
+      const response = await itemApi.postItemAdmin(post);
       console.log(response);
     } catch (err) {
       console.log(err);
@@ -66,12 +62,10 @@ const AdminPage = () => {
     let posts = {
       thumbnail: data.thumbnail,
       title: data.title,
-      description: data.description,
-      price: data.price,
       category: data.category,
+      price: data.price,
+      description: data.description,
     };
-    // const formData = new FormData();
-    // formData.append("file", this.state.pictureAsFile);
     addProductAdmin(posts);
     // fetchProductList();
 
@@ -95,11 +89,11 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="file"
-                name="thumbnail"
+                name="image"
                 id="input-file"
-                placeholder="thumbnail url"
+                placeholder="Image url"
                 required
-                onChange={handleRenderthumbnail}
+                onChange={handleRenderImage}
               />
               {avatar && (
                 <div className="h-[200px] flex border border-solid overflow-hidden rounded-md">
@@ -151,11 +145,11 @@ const AdminPage = () => {
               <input
                 className="py-[10px] px-[15px] border border-solid rounded-md max-w-[100%] w-full outline-none focus:outline-primary"
                 type="text"
-                name="category"
-                placeholder="Enter your category"
+                name="amount"
+                placeholder="Enter your amount"
                 required
-                value={data.category}
-                onChange={(e) => setData({ ...data, category: e.target.value })}
+                value={data.amount}
+                onChange={(e) => setData({ ...data, amount: e.target.value })}
               />
             </Col>
             <Col
@@ -212,7 +206,7 @@ const AdminPage = () => {
               >
                 <div className="homepage-product relative h-full max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3x hover:border-t-1 hover:border rounded-md overflow-hidden">
                   <img
-                    src={item?.thumbnail}
+                    src={item?.image}
                     alt=""
                     className="max-w-full w-full cursor-pointer object-cover h-[100%] max-h-[50%]"
                   />
@@ -221,7 +215,7 @@ const AdminPage = () => {
                       {item.title}
                     </h2>
                     <p className="text-[#7c6e65] text-[14px] mb-1 hover:text-[#f75454] cursor-pointer">
-                      {item.category}
+                      {item.amount}
                     </p>
                     <p className=" mb-1 text-[18px] font-semibold">
                       {item.price}

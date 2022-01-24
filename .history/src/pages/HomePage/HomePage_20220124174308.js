@@ -113,7 +113,6 @@ const HomePage = (props) => {
   datas.map((item) => {
     categories.push(item.category);
   });
-  //unique function
   function unique(arr) {
     let uniqueArr = [];
     //Array.isArray(array) -> value: true or false
@@ -125,17 +124,17 @@ const HomePage = (props) => {
     }
     return uniqueArr;
   }
-  //filter category function
+  console.log("---------");
+  //unique categories
+  console.log(unique(categories));
   const [...uniqueCategories] = unique(categories);
-  const [filterData, setFilterData] = useState(datas);
-  const [isAllData, setIsAllData] = useState(true);
-  const filterResult = (cartItem) => {
-    const result = datas.filter((curData) => {
-      return curData.category === cartItem;
-    });
-    setFilterData(result);
-    setIsAllData(false);
+  console.log(categories);
+  console.log("categories");
+  const filterResult = () => {
+    const result = uniqueCategories;
   };
+  console.log(category);
+  //Get item category
   //-------------------------------------------
   const handleClickCart = async (param) => {
     setId(param);
@@ -148,6 +147,7 @@ const HomePage = (props) => {
       await dispatch(addToCart(product));
       console.log("work");
     }
+    const categories = ["hai", "tieu thuyet"];
   };
 
   return (
@@ -179,21 +179,12 @@ const HomePage = (props) => {
                   plusCategories ? "h-0" : `h-auto`
                 }`}
               >
-                <p
-                  className="py-[9px] hover:text-[#f75454]
-                            cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
-                >
-                  Tất cả sản phẩm
-                </p>
                 {[...category].map((item) => (
                   <p
                     className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
                     onClick={() => {
-                      filterResult(item);
+                      filterResult("");
                     }}
                   >
                     {item}
@@ -296,7 +287,7 @@ const HomePage = (props) => {
             </div>
 
             <Row className="">
-              {(isAllData ? datas : filterData)
+              {datas
 
                 .filter((val) => {
                   if (searchTerm === "") {

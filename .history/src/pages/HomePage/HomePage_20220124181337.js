@@ -130,11 +130,12 @@ const HomePage = (props) => {
   const [filterData, setFilterData] = useState(datas);
   const [isAllData, setIsAllData] = useState(true);
   const filterResult = (cartItem) => {
-    const result = datas.filter((curData) => {
-      return curData.category === cartItem;
-    });
-    setFilterData(result);
-    setIsAllData(false);
+    if (isAllData === false) {
+      const result = datas.filter((curData) => {
+        return curData.category === cartItem;
+      });
+      setFilterData(result);
+    }
   };
   //-------------------------------------------
   const handleClickCart = async (param) => {
@@ -182,9 +183,9 @@ const HomePage = (props) => {
                 <p
                   className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
+                  // onClick={() => {
+                  //   setIsAllData(true);
+                  // }}
                 >
                   Tất cả sản phẩm
                 </p>
@@ -296,90 +297,94 @@ const HomePage = (props) => {
             </div>
 
             <Row className="">
-              {(isAllData ? datas : filterData)
+              {{isAllData
+                ? datas
+                : filterData}
 
-                .filter((val) => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.title.toLowerCase().includes(searchTerm.toLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
-                .map((item, index) => (
-                  <Col
-                    span={6}
-                    className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
+                    .filter((val) => {
+                      if (searchTerm === "") {
+                        return val;
+                      } else if (
+                        val.title
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((item, index) => (
+                      <Col
+                        span={6}
+                        className="iphone:!max-w-[100%] iphone:!flex-ant100 md:!max-w-[50%] md:!flex-ant50
                   lg:!max-w-[25%] lg:!flex-ant"
-                    key={item._id}
-                  >
-                    <div className="homepage-product z-50 relative max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3xl border-t-0 hover:border-t-1 hover:border">
-                      <div className="p-1">
-                        <img
-                          src={item?.imageUrl}
-                          onClick={() => {
-                            navigateProduct(item._id);
-                          }}
-                          alt=""
-                          className="max-w-full w-full cursor-pointer object-contain md:h-[100px]"
-                        />
-                      </div>
-                      <div className="homepage-product-item_content ease-out duration-150 text-[16px] mb-1 pt-4 max-h-44 bg-white ">
-                        <div
-                          className="text-xs text-primary capitalize cursor-pointer hover:text-primary ease-in-out duration-150"
-                          onClick={() => {
-                            filterResult(item.category);
-                          }}
-                        >
-                          {item?.category}
-                        </div>
+                        key={item._id}
+                      >
+                        <div className="homepage-product z-50 relative max-h-[500px] p-[30px] border-solid border-[1px] hover:border-black hover:shadow-3xl border-t-0 hover:border-t-1 hover:border">
+                          <div className="p-1">
+                            <img
+                              src={item?.imageUrl}
+                              onClick={() => {
+                                navigateProduct(item._id);
+                              }}
+                              alt=""
+                              className="max-w-full w-full cursor-pointer object-contain md:h-[100px]"
+                            />
+                          </div>
+                          <div className="homepage-product-item_content ease-out duration-150 text-[16px] mb-1 pt-4 max-h-44 bg-white ">
+                            <div
+                              className="text-xs text-primary capitalize cursor-pointer hover:text-primary ease-in-out duration-150"
+                              onClick={() => {
+                                filterResult(item.category);
+                              }}
+                            >
+                              {item?.category}
+                            </div>
 
-                        <h2
-                          className="mb-0 cursor-pointer h-11 line-clamp-2 inline-block hover:text-[#f75454] capitalize"
-                          onClick={() => {
-                            navigateProduct(item._id);
-                          }}
-                        >
-                          {item?.title}
-                        </h2>
+                            <h2
+                              className="mb-0 cursor-pointer h-11 line-clamp-2 inline-block hover:text-[#f75454] capitalize"
+                              onClick={() => {
+                                navigateProduct(item._id);
+                              }}
+                            >
+                              {item?.title}
+                            </h2>
 
-                        <p
-                          className="text-[#7c6e65] text-[14px] mb-1 cursor-pointer inline-block capitalize"
-                          onClick={() => {
-                            navigateProduct(item._id);
-                          }}
-                        >
-                          {item?.description}
-                        </p>
-                        <div className="text-xs text-primary  cursor-default">
-                          Còn trong kho: ({item?.countInStocks})
+                            <p
+                              className="text-[#7c6e65] text-[14px] mb-1 cursor-pointer inline-block capitalize"
+                              onClick={() => {
+                                navigateProduct(item._id);
+                              }}
+                            >
+                              {item?.description}
+                            </p>
+                            <div className="text-xs text-primary  cursor-default">
+                              Còn trong kho: ({item?.countInStocks})
+                            </div>
+                            <p className=" mb-1 text-[18px] font-semibold relative">
+                              {item?.price}{" "}
+                              <span className="text-[14px] absolute top-1/2 -translate-y-1/2">
+                                đ
+                              </span>
+                            </p>
+                            <div className="">
+                              <Rating></Rating>{" "}
+                              <span className="inline-block ml-2">
+                                ({item.rating})
+                              </span>
+                            </div>
+                          </div>
+                          <div className="iphone:text-white lg:text-black cursor-pointer lg:-translate-x-1/2 iphone:m-auto iphone:translate-y-4 lg:translate-y-0 left-2/4 lg:-z-50 lg:absolute bottom-[73px] max-w-[157px] w-full">
+                            <ShoppingOutlined
+                              className="homePage_button  lg:bg-white iphone:bg-primary p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl lg:absolute w-full lg:-translate-x-1/2	lg:left-2/4"
+                              // onClick={handleClickCart}
+                              onClick={() => {
+                                handleClickCart(item._id);
+                              }}
+                            ></ShoppingOutlined>
+                          </div>
                         </div>
-                        <p className=" mb-1 text-[18px] font-semibold relative">
-                          {item?.price}{" "}
-                          <span className="text-[14px] absolute top-1/2 -translate-y-1/2">
-                            đ
-                          </span>
-                        </p>
-                        <div className="">
-                          <Rating></Rating>{" "}
-                          <span className="inline-block ml-2">
-                            ({item.rating})
-                          </span>
-                        </div>
-                      </div>
-                      <div className="iphone:text-white lg:text-black cursor-pointer lg:-translate-x-1/2 iphone:m-auto iphone:translate-y-4 lg:translate-y-0 left-2/4 lg:-z-50 lg:absolute bottom-[73px] max-w-[157px] w-full">
-                        <ShoppingOutlined
-                          className="homePage_button  lg:bg-white iphone:bg-primary p-3 rounded ease-in-out duration-100 hover:bg-[#f75454] hover:text-white text-2xl lg:absolute w-full lg:-translate-x-1/2	lg:left-2/4"
-                          // onClick={handleClickCart}
-                          onClick={() => {
-                            handleClickCart(item._id);
-                          }}
-                        ></ShoppingOutlined>
-                      </div>
-                    </div>
-                  </Col>
-                ))}
+                      </Col>
+                    ))}
             </Row>
           </Col>
         </Row>

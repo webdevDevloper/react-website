@@ -128,13 +128,14 @@ const HomePage = (props) => {
   //filter category function
   const [...uniqueCategories] = unique(categories);
   const [filterData, setFilterData] = useState(datas);
-  const [isAllData, setIsAllData] = useState(true);
+  const [isAllData, setIsAllData] = useState(false);
   const filterResult = (cartItem) => {
-    const result = datas.filter((curData) => {
-      return curData.category === cartItem;
-    });
-    setFilterData(result);
-    setIsAllData(false);
+    if (isAllData === true) {
+      const result = datas.filter((curData) => {
+        return curData.category === cartItem;
+      });
+      setFilterData(result);
+    }
   };
   //-------------------------------------------
   const handleClickCart = async (param) => {
@@ -145,7 +146,7 @@ const HomePage = (props) => {
         productId: productHomePage._id,
         quantity: quantity,
       };
-      await dispatch(addToCart(product));
+      dispatch(addToCart(product));
       console.log("work");
     }
   };
@@ -182,9 +183,9 @@ const HomePage = (props) => {
                 <p
                   className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
+                  // onClick={() => {
+                  //   setIsAllData(true);
+                  // }}
                 >
                   Tất cả sản phẩm
                 </p>
@@ -296,7 +297,7 @@ const HomePage = (props) => {
             </div>
 
             <Row className="">
-              {(isAllData ? datas : filterData)
+              {`${isAllData ? filterData : datas}`
 
                 .filter((val) => {
                   if (searchTerm === "") {

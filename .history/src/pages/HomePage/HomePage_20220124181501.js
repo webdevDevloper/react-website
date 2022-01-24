@@ -130,11 +130,10 @@ const HomePage = (props) => {
   const [filterData, setFilterData] = useState(datas);
   const [isAllData, setIsAllData] = useState(true);
   const filterResult = (cartItem) => {
-    const result = datas.filter((curData) => {
-      return curData.category === cartItem;
-    });
-    setFilterData(result);
-    setIsAllData(false);
+      const result = datas.filter((curData) => {
+        return curData.category === cartItem;
+      setFilterData(result);
+    }
   };
   //-------------------------------------------
   const handleClickCart = async (param) => {
@@ -182,9 +181,9 @@ const HomePage = (props) => {
                 <p
                   className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
+                  // onClick={() => {
+                  //   setIsAllData(true);
+                  // }}
                 >
                   Tất cả sản phẩm
                 </p>

@@ -38,25 +38,25 @@ const HomePage = (props) => {
   const [productHomePage, setProductHomePage] = useState();
   const [id, setId] = useState("");
   const [category, setCategory] = useState("");
-  const [clickCategory, setClickCategory] = useState("");
   // console.log(datas);
   let navigate = useNavigate();
-  //--------------------------------
   useEffect(() => {
     const controller = new AbortController();
 
-    getCatalogue(controller);
+    getData(controller);
 
     return () => {
       controller.abort();
     };
   }, []);
 
-  const getCatalogue = async (controller) => {
+  const getData = async (controller) => {
     try {
-      const res = await itemApi.getItemcatalogue();
+      const res = await itemApi.getAllItems({
+        signal: controller.signal,
+      });
       // console.log(res);
-      setCategory(res.data);
+      setDatas(res.data);
     } catch (err) {}
   };
   //------------------------------------
@@ -64,7 +64,7 @@ const HomePage = (props) => {
     const controller = new AbortController();
 
     getData(controller);
-    // getCatalogue(controller);
+
     return () => {
       controller.abort();
     };
@@ -81,6 +81,32 @@ const HomePage = (props) => {
   };
 
   // console.log(datas);
+  const categoriesItem = [
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+    {
+      name: "Arts & Photography",
+    },
+  ];
 
   const handleClickMinusplusCategories = () => {
     setPlusCategories(!plusCategories);
@@ -88,7 +114,6 @@ const HomePage = (props) => {
   const handleClickMinusplusFeatured = () => {
     setPlusFeatured(!plusFeatured);
   };
-  //------------------------------------------------
   const navigateProduct = (item) => {
     navigate(`/product/${item}`);
   };
@@ -100,8 +125,8 @@ const HomePage = (props) => {
     const getHomePage = async () => {
       try {
         const response = await itemApi.getItemById(id, {});
-        setProductHomePage(response?.data);
-        console.log("product HomePage", response?.data);
+        setProductHomePage(response?.data[0]);
+        console.log("product HomePage", response?.data[0]);
       } catch (error) {
         console.log(error);
       }
@@ -109,37 +134,27 @@ const HomePage = (props) => {
     getHomePage();
   }, [id]);
   //
-  const categories = [];
-  datas.map((item) => {
-    categories.push(item.category);
-  });
-  //unique function
-  function unique(arr) {
-    let uniqueArr = [];
-    //Array.isArray(array) -> value: true or false
-    if (!Array.isArray(arr)) return uniqueArr;
-    for (let i = 0; i < arr.length; i++) {
-      if (!uniqueArr.includes(arr[i])) {
-        uniqueArr.push(arr[i]);
-      }
-    }
-    return uniqueArr;
-  }
-  //filter category function
-  const [...uniqueCategories] = unique(categories);
-  const [filterData, setFilterData] = useState(datas);
-  const [isAllData, setIsAllData] = useState(true);
-  const filterResult = (cartItem) => {
-    const result = datas.filter((curData) => {
-      return curData.category === cartItem;
-    });
-    setFilterData(result);
-    setIsAllData(false);
+  const navigateCategory = (param) => {
+    setCategory(param);
+    navigate(`/${param}`);
   };
+  console.log(category);
+  //Get item category
+  useEffect(() => {
+    const getHomePage = async () => {
+      try {
+        const response = await itemApi.getItemcatalogue(category, {});
+        setCategory(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getHomePage();
+  }, []);
   //-------------------------------------------
   const handleClickCart = async (param) => {
     setId(param);
-    // console.log(id);
+
     if (productHomePage) {
       const product = {
         productId: productHomePage._id,
@@ -179,24 +194,12 @@ const HomePage = (props) => {
                   plusCategories ? "h-0" : `h-auto`
                 }`}
               >
-                <p
-                  className="py-[9px] hover:text-[#f75454]
-                            cursor-pointer mb-0  ease-in duration-100"
-                  onClick={() => {
-                    setIsAllData(true);
-                  }}
-                >
-                  Tất cả sản phẩm
-                </p>
-                {[...category].map((item) => (
+                {datas.map((item) => (
                   <p
                     className="py-[9px] hover:text-[#f75454]
                             cursor-pointer mb-0  ease-in duration-100"
-                    onClick={() => {
-                      filterResult(item);
-                    }}
                   >
-                    {item}
+                    {item?.category}
                   </p>
                 ))}
               </div>
@@ -296,7 +299,7 @@ const HomePage = (props) => {
             </div>
 
             <Row className="">
-              {(isAllData ? datas : filterData)
+              {datas
 
                 .filter((val) => {
                   if (searchTerm === "") {
@@ -329,7 +332,7 @@ const HomePage = (props) => {
                         <div
                           className="text-xs text-primary capitalize cursor-pointer hover:text-primary ease-in-out duration-150"
                           onClick={() => {
-                            filterResult(item.category);
+                            navigateCategory(item.category);
                           }}
                         >
                           {item?.category}
