@@ -12,7 +12,7 @@ function ItemCard({ item, deleteItem, selectItem }) {
 	const handleDeleteItem = () => {
 		if (deleteItem) {
 			const reducedItem = {
-				productId: item?._id,
+				productId: thisItem?._id,
 				newQuantity: 0,
 			};
 			deleteItem(reducedItem);

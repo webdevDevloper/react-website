@@ -1,17 +1,18 @@
-@baseUrl = http://34.225.250.142:3000/api/v1
+# @baseUrl = http://34.225.250.142:3000/api/v1
+@baseUrl = http://113.165.246.63/api/v1
 
 GET {{baseUrl}}/items
 
 ###
 
-POST {{baseUrl}}/auth/signup
-content-type: application/json
+POST {{baseUrl}}/auth/signup HTTP/1.1
+content-type: application/json 
 
 {
-    "name": "nhathung",
-    "email": "vandangnhathung@gmail.com",
-    "password": "nhathung",
-    "passwordConfirm": "nhathung"
+    "name": "nguyenkiet1234",
+    "email": "nguyenkiet1234@gmail.com",
+    "password": "nguyenkiet",
+    "passwordConfirm": "nguyenkiet"
 }
 
 ### 
@@ -20,7 +21,7 @@ POST {{baseUrl}}/auth/login
 content-type: application/json
 
 {
-    "email": "vandangnhathung@gmail.com",
-    "password": "nhathung",
-    "passwordConfirm": "nhathung"
+    "email": "nguyenkiet1234@gmail.com",
+    "password": "nguyenkiet",
+    "passwordConfirm": "nguyenkiet"
 }

@@ -63,6 +63,14 @@ function App() {
 						}
 					/>
 					<Route
+						path="/user"
+						element={
+							<PrivateRoute>
+								<LoginForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
 						path="/create-product"
 						element={
 							<PrivateRoute>

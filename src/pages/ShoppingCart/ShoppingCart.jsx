@@ -14,6 +14,8 @@ const ShoppingCart = (props) => {
 	const shoppingCart = useSelector((state) => state.shoppingCart);
 	const dispatch = useDispatch();
 
+	const [selectedItems, setSelectedItems] = useState([]);
+
 	const handleKeepShopping = () => {
 		navigate("/");
 	};
@@ -38,6 +40,8 @@ const ShoppingCart = (props) => {
 		console.log(item);
 		dispatch(updateCart(item));
 	};
+
+	const handleSelectItem = (item) => {};
 
 	useEffect(() => {
 		if (shoppingCart) {
